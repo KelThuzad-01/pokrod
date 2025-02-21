@@ -1,24 +1,34 @@
-name: C/C++ CI
+name: Build Pokémon Red ROM
 
 on:
   push:
-    branches: [ "develop" ]
+    branches:
+      - develop
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      - develop
+  workflow_dispatch:
 
 jobs:
   build-rom:
-    runs-on: ubuntu-latest  # Se ejecutará en un contenedor Linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clonar el repositorio
-        uses: actions/checkout@v3  # Descarga tu código fuente
+        uses: actions/checkout@v4
 
-      - name: Instalar dependencias
-        run: sudo apt-get install -y build-essential make gcc; mkdir rgbds; tar xf rgbds-0.7.0-linux-x86_64.tar.xz -C rgbds; cd rgbds; sudo ./install.sh
-        # Instala make y gcc
+      - name: Instalar dependencias del sistema
+        run: sudo apt-get install -y build-essential make gcc git libpng-dev
+
+      - name: Clonar e instalar RGBDS
+        run: |
+          git clone https://github.com/gbdev/rgbds.git
+          cd rgbds
+          make
+          sudo make install
+
       - name: Compilar el proyecto
-        run: make  # Ejecuta el comando make
+        run: make
 
       - name: Subir ROM compilada como artefacto
         uses: actions/upload-artifact@v4
