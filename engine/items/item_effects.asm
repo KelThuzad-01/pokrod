@@ -1861,7 +1861,7 @@ INCLUDE "data/wild/good_rod.asm"
 ItemUseSuperRod:
 	call FishingInit
 	jp c, ItemUseNotTime
-	call ReadSuperRodData
+	call FishingRandomizer ; Llama a la rutina aleatoria
 	ld a, e
 RodResponse:
 	ld [wRodResponse], a
@@ -2874,14 +2874,12 @@ ReadSuperRodData:
 	cp b
 	jr nc, .RandomLoop ; if a is greater than the number of mons, regenerate
 
-	; get the mon
-	add a
-	ld c, a
-	ld b, $0
-	add hl, bc
-	ld b, [hl] ; level
-	inc hl
-	ld c, [hl] ; species
+	; Generar un Pokémon aleatorio en lugar de seleccionar de una tabla fija
+	call Random
+	ld b, 151             ; Máximo número de Pokémon en la Pokédex (Mew es 151)
+	call Modulus          ; Asegura que el resultado esté entre 1 y 151
+	ld c, b               ; Guarda el Pokémon aleatorio en el registro C
+
 	ld e, $1 ; $1 if there's a bite
 	ret
 
