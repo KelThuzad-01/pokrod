@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build-rom:
+    runs-on: ubuntu-latest  # Se ejecutará en un contenedor Linux
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3  # Descarga tu código fuente
+
+      - name: Instalar dependencias
+        run: sudo apt-get install -y build-essential make gcc  # Instala make y gcc
+
+      - name: Compilar el proyecto
+        run: make  # Ejecuta el comando make
+
+      - name: Subir ROM compilada como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: PokemonRed.gbc
+          path: pokered.gbc
