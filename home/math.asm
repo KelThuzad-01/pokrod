@@ -1,3 +1,4 @@
+EXPORT Modulus
 ; function to do multiplication
 ; all values are big endian
 ; INPUT
