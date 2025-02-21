@@ -77,7 +77,7 @@ ReadTrainer:
 .AssignPokemon
     ld [wCurPartySpecies], a
     ld a, [wCurEnemyLevel]  ; Nivel base definido por el entrenador
-    ld [wCurPartyMonLevel], a
+    ld [wCurEnemyLevel], a
     ld a, ENEMY_PARTY_DATA
     ld [wMonDataLocation], a
     push hl
