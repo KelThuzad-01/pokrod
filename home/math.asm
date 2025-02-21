@@ -31,10 +31,16 @@ Divide::
 	pop de
 	pop hl
 	ret
-; Modulus: devuelve a % b
+
 Modulus:
     ld h, 0
-    ld l, a
-    div b
-    ld a, l
+    ld l, a   ; Cargar el dividendo en HL
+.mod_loop
+    sub b     ; Restar divisor (b) al dividendo (a)
+    jr c, .done  ; Si resultado es negativo, hemos terminado
+    inc h     ; Contador de divisiones completas
+    jr .mod_loop
+.done
+    add b     ; Revertimos la última resta que fue demasiado
+    ld a, l   ; El residuo queda en 'a'
     ret
