@@ -51,11 +51,39 @@ ReadTrainer:
 	jr z, .SpecialTrainer ; if so, check for special moves
 	ld [wCurEnemyLevel], a
 .LoopTrainerData
-	call Random           ; Genera un número aleatorio
-	ld b, 151             ; Máximo número de Pokémon en la Pokédex (Mew es 151)
-	call Modulus          ; Asegura que el resultado esté entre 1 y 151
-	ld a, b               ; Guarda el Pokémon aleatorio en el registro A
-	ld [wCurPartySpecies], a  ; Asigna el Pokémon aleatorio al equipo enemigo
+	call Random      ; Generar un número aleatorio
+        and %11         ; Limitar el número a 0-3 (4 opciones)
+
+        cp 0
+        jr z, .PickMagikarp
+        cp 1
+        jr z, .PickSnorlax
+        cp 2
+        jr z, .PickSquirtle
+        cp 3
+        jr z, .PickCharmander
+
+.PickMagikarp
+        ld b, 15   ; Nivel base
+        ld c, MAGIKARP
+        jr .SetPokemon
+
+.PickSnorlax
+        ld b, 30
+        ld c, SNORLAX
+        jr .SetPokemon
+
+.PickSquirtle
+        ld b, 20
+        ld c, SQUIRTLE
+        jr .SetPokemon
+
+.PickCharmander
+        ld b, 20
+        ld c, CHARMANDER
+
+.SetPokemon
+        ret
 
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
