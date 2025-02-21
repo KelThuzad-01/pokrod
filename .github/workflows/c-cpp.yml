@@ -21,7 +21,7 @@ jobs:
         run: make  # Ejecuta el comando make
 
       - name: Subir ROM compilada como artefacto
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PokemonRed.gbc
           path: pokered.gbc
