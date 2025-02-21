@@ -31,3 +31,10 @@ Divide::
 	pop de
 	pop hl
 	ret
+; Modulus: devuelve a % b
+Modulus:
+    ld h, 0
+    ld l, a
+    div b
+    ld a, l
+    ret
