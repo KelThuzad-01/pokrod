@@ -2863,35 +2863,47 @@ ReadSuperRodData:
 
 .ChoosePokemon
     call Random  ; Generar un número aleatorio
-    and %11      ; Limitar el resultado a 0-3 (4 opciones)
+    and 0xFF     ; Asegurar un rango válido (0-255)
+    cp 151       ; Si el número es mayor a 150, repetir
+    jr nc, .ChoosePokemon
 
-    cp 0
-    jr z, .PickMagikarp
-    cp 1
-    jr z, .PickCharmander
-    cp 2
-    jr z, .PickSquirtle
-    cp 3
-    jr z, .PickBulbasaur
+    ; Tabla de selección de Pokémon
+    ld hl, PokemonTable
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld c, [hl]
 
-.PickMagikarp
-    ld b, 10   ; Nivel base del Pokémon pescado
-    ld c, MAGIKARP
-    jr .SetPokemon
+    ld b, 10 + (a / 10)  ; Asignar nivel base en función del índice
+    ld e, $1 ; $1 si hay un mordisco
+    ret
 
-.PickCharmander
-    ld b, 10
-    ld c, CHARMANDER
-    jr .SetPokemon
+PokemonTable:
+    db BULBASAUR, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD
+    db SQUIRTLE, WARTORTLE, BLASTOISE, CATERPIE, METAPOD, BUTTERFREE
+    db WEEDLE, KAKUNA, BEEDRILL, PIDGEY, PIDGEOTTO, PIDGEOT
+    db RATTATA, RATICATE, SPEAROW, FEAROW, EKANS, ARBOK, PIKACHU, RAICHU
+    db SANDSHREW, SANDSLASH, NIDORANF, NIDORINA, NIDOQUEEN
+    db NIDORANM, NIDORINO, NIDOKING, CLEFAIRY, CLEFABLE
+    db VULPIX, NINETALES, JIGGLYPUFF, WIGGLYTUFF
+    db ZUBAT, GOLBAT, ODDISH, GLOOM, VILEPLUME, PARAS, PARASECT
+    db VENONAT, VENOMOTH, DIGLETT, DUGTRIO, MEOWTH, PERSIAN
+    db PSYDUCK, GOLDUCK, MANKEY, PRIMEAPE, GROWLITHE, ARCANINE
+    db POLIWAG, POLIWHIRL, POLIWRATH, ABRA, KADABRA, ALAKAZAM
+    db MACHOP, MACHOKE, MACHAMP, BELLSPROUT, WEEPINBELL, VICTREEBEL
+    db TENTACOOL, TENTACRUEL, GEODUDE, GRAVELER, GOLEM, PONYTA, RAPIDASH
+    db SLOWPOKE, SLOWBRO, MAGNEMITE, MAGNETON, FARFETCHD, DODUO, DODRIO
+    db SEEL, DEWGONG, GRIMER, MUK, SHELLDER, CLOYSTER, GASTLY, HAUNTER, GENGAR
+    db ONIX, DROWZEE, HYPNO, KRABBY, KINGLER, VOLTORB, ELECTRODE
+    db EXEGGCUTE, EXEGGUTOR, CUBONE, MAROWAK, HITMONLEE, HITMONCHAN
+    db LICKITUNG, KOFFING, WEEZING, RHYHORN, RHYDON, CHANSEY
+    db TANGELA, KANGASKHAN, HORSEA, SEADRA, GOLDEEN, SEAKING
+    db STARYU, STARMIE, MR_MIME, SCYTHER, JYNX, ELECTABUZZ, MAGMAR
+    db PINSIR, TAUROS, MAGIKARP, GYARADOS, LAPRAS, DITTO, EEVEE
+    db VAPOREON, JOLTEON, FLAREON, PORYGON, OMANYTE, OMASTAR
+    db KABUTO, KABUTOPS, AERODACTYL, SNORLAX, ARTICUNO, ZAPDOS, MOLTRES
+    db DRATINI, DRAGONAIR, DRAGONITE, MEWTWO, MEW
 
-.PickSquirtle
-    ld b, 10
-    ld c, SQUIRTLE
-    jr .SetPokemon
-
-.PickBulbasaur
-    ld b, 10
-    ld c, BULBASAUR
 
 .SetPokemon
     ld e, $1 ; $1 si hay un mordisco
