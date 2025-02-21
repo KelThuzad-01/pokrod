@@ -2867,16 +2867,17 @@ ReadSuperRodData:
     cp 151       ; Si el número es mayor a 150, repetir
     jr nc, .ChoosePokemon
 
-    ; Tabla de selección de Pokémon
     ld hl, PokemonTable
     ld e, a
     ld d, 0
     add hl, de
-    ld c, [hl]
+    ld a, [hl]    ; 
+    ld c, a       ; 
 
-    ld b, 10 + (a / 10)  ; Asignar nivel base en función del índice
+    ld b, 10 + (a / 10)  ; 
     ld e, $1 ; $1 si hay un mordisco
     ret
+
 
 PokemonTable:
     db BULBASAUR, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD
@@ -2903,11 +2904,6 @@ PokemonTable:
     db VAPOREON, JOLTEON, FLAREON, PORYGON, OMANYTE, OMASTAR
     db KABUTO, KABUTOPS, AERODACTYL, SNORLAX, ARTICUNO, ZAPDOS, MOLTRES
     db DRATINI, DRAGONAIR, DRAGONITE, MEWTWO, MEW
-
-
-.SetPokemon
-    ld e, $1 ; $1 si hay un mordisco
-    ret
 
 
 INCLUDE "data/wild/super_rod.asm"
