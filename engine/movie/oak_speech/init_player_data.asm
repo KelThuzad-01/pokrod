@@ -18,10 +18,11 @@ InitPlayerData2:
 	call InitializeEmptyList
 	ld hl, wNumBagItems
 	call InitializeEmptyList
+	call InitPlayerBag ; Call new function bag to give items
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
 
-DEF START_MONEY EQU $3000
+DEF START_MONEY EQU $5
 	ld hl, wPlayerMoney + 1
 	ld a, HIGH(START_MONEY)
 	ld [hld], a
@@ -53,3 +54,22 @@ InitializeEmptyList:
 	dec a ; terminator
 	ld [hl], a
 	ret
+
+InitPlayerBag:
+    ld hl, wNumBagItems   ; Apunta al número de objetos en la mochila
+    ld [hl], 2            ; Número de objetos iniciales (ajústalo si agregas más)
+
+    ld hl, wBagItems
+    ld [hl], OLD_ROD      ; Primer objeto: Caña vieja
+    inc hl
+    ld [hl], 1            ; Cantidad: 1
+    inc hl
+
+    ld [hl], POKE_BALL    ; Segundo objeto: Poké Ball
+    inc hl
+    ld [hl], 99           ; Cantidad: 99
+    inc hl
+
+    ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
+
+    ret
