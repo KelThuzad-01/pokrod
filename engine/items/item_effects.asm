@@ -2853,35 +2853,50 @@ ReadSuperRodData:
 	ret
 
 .ReadFishingGroup
-; hl points to the fishing group entry in the index
-	inc hl ; skip map id
+    ld a, [wCurMap]
+    ld de, 3 ; cada grupo de pesca tiene 3 bytes
+    ld hl, SuperRodData
+    call IsInArray
+    jr c, .ChoosePokemon
+    ld e, $2 ; $2 si no hay Pokémon en esta área
+    ret
 
-	; read fishing group address
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+.ChoosePokemon
+    call Random  ; Generar un número aleatorio
+    and %11      ; Limitar el resultado a 0-3 (4 opciones)
 
-	ld b, [hl] ; how many mons in group
-	inc hl ; point to data
-	ld e, $0 ; no bite yet
+    cp 0
+    jr z, .PickMagikarp
+    cp 1
+    jr z, .PickCharmander
+    cp 2
+    jr z, .PickSquirtle
+    cp 3
+    jr z, .PickBulbasaur
 
-.RandomLoop
-	call Random
-	srl a
-	ret c ; 50% chance of no battle
+.PickMagikarp
+    ld b, 10   ; Nivel base del Pokémon pescado
+    ld c, MAGIKARP
+    jr .SetPokemon
 
-	and %11 ; 2-bit random number
-	cp b
-	jr nc, .RandomLoop ; if a is greater than the number of mons, regenerate
+.PickCharmander
+    ld b, 10
+    ld c, CHARMANDER
+    jr .SetPokemon
 
-	; Generar un Pokémon aleatorio en lugar de seleccionar de una tabla fija
-	call Random
-	ld b, 151             ; Máximo número de Pokémon en la Pokédex (Mew es 151)
-	call Modulus          ; Asegura que el resultado esté entre 1 y 151
-	ld c, b               ; Guarda el Pokémon aleatorio en el registro C
+.PickSquirtle
+    ld b, 10
+    ld c, SQUIRTLE
+    jr .SetPokemon
 
-	ld e, $1 ; $1 if there's a bite
-	ret
+.PickBulbasaur
+    ld b, 10
+    ld c, BULBASAUR
+
+.SetPokemon
+    ld e, $1 ; $1 si hay un mordisco
+    ret
+
 
 INCLUDE "data/wild/super_rod.asm"
 
