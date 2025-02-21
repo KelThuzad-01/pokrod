@@ -16,7 +16,6 @@ jobs:
 
       - name: Instalar dependencias
         run: sudo apt-get install -y build-essential make gcc rgbds  # Instala make y gcc
-
       - name: Compilar el proyecto
         run: make  # Ejecuta el comando make
 
