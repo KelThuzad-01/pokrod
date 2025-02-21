@@ -2874,7 +2874,12 @@ ReadSuperRodData:
     ld a, [hl]    ; 
     ld c, a       ; 
 
-    ld b, 10 + (a / 10)  ; 
+    ld b, a         ; Guardamos `a` en `b`
+    ld a, 10        ; Cargamos 10 en `a`
+    call DivideBy10  ; Llamamos a una subrutina para `b / 10`
+    add 10          ; Sumamos 10 al resultado
+    ld b, a         ; Guardamos el nuevo nivel en `b`
+
     ld e, $1 ; $1 si hay un mordisco
     ret
 
