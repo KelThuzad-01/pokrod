@@ -46,12 +46,6 @@ DEF START_MONEY EQU $5
 	ld bc, wGameProgressFlagsEnd - wGameProgressFlags
 	call FillMemory ; clear all game progress flags
 
-        ld a, MAGIKARP  ; ID de Magikarp
-  	ld [wCurPartySpecies], a
-    	ld a, 5         ; Nivel 5
-    	ld [wCurPartyMonLevel], a  ; 
-    	call GivePokemon
-
 	jp InitializeMissableObjectsFlags
 
 InitializeEmptyList:
