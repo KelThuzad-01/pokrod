@@ -47,10 +47,10 @@ DEF START_MONEY EQU $5
 	call FillMemory ; clear all game progress flags
 
         ld a, MAGIKARP  ; ID de Magikarp
-        ld [wCurPartySpecies], a
-        ld a, 5         ; Nivel 5
-        ld [wCurPartyLevel], a
-        call GivePokemon  ; Usa la misma función que los Pokémon iniciales
+  	ld [wCurPartySpecies], a
+    	ld a, 5         ; Nivel 5
+    	ld [wCurPartyMonLevel], a  ; 
+    	call GivePokemon
 
 	jp InitializeMissableObjectsFlags
 
