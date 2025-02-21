@@ -51,10 +51,12 @@ ReadTrainer:
 	jr z, .SpecialTrainer ; if so, check for special moves
 	ld [wCurEnemyLevel], a
 .LoopTrainerData
-	ld a, [hli]
-	and a ; have we reached the end of the trainer data?
-	jr z, .FinishUp
-	ld [wCurPartySpecies], a
+	call Random           ; Genera un número aleatorio
+	ld b, 151             ; Máximo número de Pokémon en la Pokédex (Mew es 151)
+	call Modulus          ; Asegura que el resultado esté entre 1 y 151
+	ld a, b               ; Guarda el Pokémon aleatorio en el registro A
+	ld [wCurPartySpecies], a  ; Asigna el Pokémon aleatorio al equipo enemigo
+
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
 	push hl
