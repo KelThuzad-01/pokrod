@@ -1861,7 +1861,7 @@ INCLUDE "data/wild/good_rod.asm"
 ItemUseSuperRod:
 	call FishingInit
 	jp c, ItemUseNotTime
-	call FishingRandomizer ; Llama a la rutina aleatoria
+	call ReadSuperRodData
 	ld a, e
 RodResponse:
 	ld [wRodResponse], a
