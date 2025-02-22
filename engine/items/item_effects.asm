@@ -1927,206 +1927,206 @@ ChooseGoodRodPokemon:
     jr z, .PickGrimer
     cp 39 
     jr z, .PickMuk
-
 .PickCaterpie
     ld b, 7
     ld c, CATERPIE
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickMetapod
     ld b, 10
     ld c, METAPOD
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickButterfree
     ld b, 14
     ld c, BUTTERFREE
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickWeedle
     ld b, 7
     ld c, WEEDLE
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickKakuna
     ld b, 10
     ld c, KAKUNA
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickBeedrill
     ld b, 14
     ld c, BEEDRILL
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickPidgey
     ld b, 6
     ld c, PIDGEY
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickPidgeotto
     ld b, 16
     ld c, PIDGEOTTO
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickPidgeot
     ld b, 36
     ld c, PIDGEOT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickRattata
     ld b, 6
     ld c, RATTATA
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickRaticate
     ld b, 20
     ld c, RATICATE
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickSpearow
     ld b, 6
     ld c, SPEAROW
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickFearow
     ld b, 20
     ld c, FEAROW
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickEkans
     ld b, 10
     ld c, EKANS
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickArbok
     ld b, 30
     ld c, ARBOK
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickPikachu
     ld b, 10
     ld c, PIKACHU
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickRaichu
     ld b, 30
     ld c, RAICHU
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickSandshrew
     ld b, 10
     ld c, SANDSHREW
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickSandslash
     ld b, 30
     ld c, SANDSLASH
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickNidoranF
     ld b, 10
     ld c, NIDORAN_F
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickZubat
     ld b, 10
     ld c, ZUBAT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickGolbat
     ld b, 30
     ld c, GOLBAT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickOddish
     ld b, 10
     ld c, ODDISH
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickGloom
     ld b, 20
     ld c, GLOOM
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickVileplume
     ld b, 30
     ld c, VILEPLUME
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickParas
     ld b, 8
     ld c, PARAS
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickParasect
     ld b, 38
     ld c, PARASECT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickVenonat
     ld b, 38
     ld c, VENONAT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickVenomoth
     ld b, 38
     ld c, VENOMOTH
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickDiglett
     ld b, 10
     ld c, DIGLETT
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickDugtrio
     ld b, 30
     ld c, DUGTRIO
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickMeowth
     ld b, 10
     ld c, MEOWTH
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickPersian
     ld b, 30
     ld c, PERSIAN
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickFarfetchd
     ld b, 20
     ld c, FARFETCHD
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickDoduo
     ld b, 10
     ld c, DODUO
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickDodrio
     ld b, 30
     ld c, DODRIO
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickSeel
     ld b, 10
     ld c, SEEL
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickDewgong
     ld b, 30
     ld c, DEWGONG
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickGrimer
     ld b, 10
     ld c, GRIMER
-    jr .SetPokemon
+    jp .SetPokemon
 
 .PickMuk
     ld b, 40
     ld c, MUK
-    jr .SetPokemon
+    jp .SetPokemon
+
 
 .SetPokemon
     ld e, $1 ; Indicar que hay un mordisco
@@ -3238,241 +3238,101 @@ ReadSuperRodData:
     cp 46
     jr z, .PickPorygon
 
+    cp 85
+    jp z, .PickShellder
+    cp 86
+    jp z, .PickCloyster
+    cp 87
+    jp z, .PickGastly
+    cp 88
+    jp z, .PickHaunter
+    cp 89
+    jp z, .PickGengar
+    cp 90
+    jp z, .PickOnix
+    cp 91
+    jp z, .PickDrowzee
+    cp 92
+    jp z, .PickHypno
+    cp 93
+    jp z, .PickKrabby
+    cp 94
+    jp z, .PickKingler
+    cp 95
+    jp z, .PickVoltorb
+    cp 96
+    jp z, .PickElectrode
+    cp 97
+    jp z, .PickExeggcute
+    cp 98
+    jp z, .PickExeggutor
+    cp 99
+    jp z, .PickCubone
+    cp 100
+    jp z, .PickMarowak
+    cp 101
+    jp z, .PickHitmonlee
+    cp 102
+    jp z, .PickHitmonchan
+    cp 103
+    jp z, .PickLickitung
+    cp 104
+    jp z, .PickKoffing
+    cp 105
+    jp z, .PickWeezing
+    cp 106
+    jp z, .PickRhyhorn
+    cp 107
+    jp z, .PickRhydon
+    cp 108
+    jp z, .PickChansey
+    cp 109
+    jp z, .PickTangela
+    cp 110
+    jp z, .PickKangaskhan
+    cp 111
+    jp z, .PickHorsea
+    cp 112
+    jp z, .PickSeadra
+    cp 113
+    jp z, .PickGoldeen
+    cp 114
+    jp z, .PickSeaking
+    cp 115
+    jp z, .PickStaryu
+    cp 116
+    jp z, .PickStarmie
+    cp 117
+    jp z, .PickScyther
+    cp 119
+    jp z, .PickJynx
+    cp 120
+    jp z, .PickElectabuzz
+    cp 121
+    jp z, .PickMagmar
+    cp 122
+    jp z, .PickPinsir
+    cp 123
+    jp z, .PickTauros
+    cp 124
+    jp z, .PickMagikarp
+    cp 125
+    jp z, .PickGyarados
+    cp 126
+    jp z, .PickLapras
+    cp 127
+    jp z, .PickDitto
+    cp 128
+    jp z, .PickEevee
+    cp 129
+    jp z, .PickVaporeon
+    cp 130
+    jp z, .PickJolteon
+    cp 131
+    jp z, .PickFlareon
+    cp 132
+    jp z, .PickPorygon
 
-.PickShellder
-    ld b, 10
-    ld c, SHELLDER
-    jr .SetPokemon
-
-.PickCloyster
-    ld b, 40
-    ld c, CLOYSTER
-    jr .SetPokemon
-
-.PickGastly
-    ld b, 10
-    ld c, GASTLY
-    jr .SetPokemon
-
-.PickHaunter
-    ld b, 20
-    ld c, HAUNTER
-    jr .SetPokemon
-
-.PickGengar
-    ld b, 40
-    ld c, GENGAR
-    jr .SetPokemon
-
-.PickOnix
-    ld b, 30
-    ld c, ONIX
-    jr .SetPokemon
-
-.PickDrowzee
-    ld b, 10
-    ld c, DROWZEE
-    jr .SetPokemon
-
-.PickHypno
-    ld b, 30
-    ld c, HYPNO
-    jr .SetPokemon
-
-.PickKrabby
-    ld b, 10
-    ld c, KRABBY
-    jr .SetPokemon
-
-.PickKingler
-    ld b, 40
-    ld c, KINGLER
-    jr .SetPokemon
-
-.PickVoltorb
-    ld b, 10
-    ld c, VOLTORB
-    jr .SetPokemon
-
-.PickElectrode
-    ld b, 40
-    ld c, ELECTRODE
-    jr .SetPokemon
-
-.PickExeggcute
-    ld b, 10
-    ld c, EXEGGCUTE
-    jr .SetPokemon
-
-.PickExeggutor
-    ld b, 40
-    ld c, EXEGGUTOR
-    jr .SetPokemon
-
-.PickCubone
-    ld b, 10
-    ld c, CUBONE
-    jr .SetPokemon
-
-.PickMarowak
-    ld b, 40
-    ld c, MAROWAK
-    jr .SetPokemon
-
-.PickHitmonlee
-    ld b, 30
-    ld c, HITMONLEE
-    jr .SetPokemon
-
-.PickHitmonchan
-    ld b, 30
-    ld c, HITMONCHAN
-    jr .SetPokemon
-
-.PickLickitung
-    ld b, 30
-    ld c, LICKITUNG
-    jr .SetPokemon
-
-.PickKoffing
-    ld b, 10
-    ld c, KOFFING
-    jr .SetPokemon
-
-.PickWeezing
-    ld b, 40
-    ld c, WEEZING
-    jr .SetPokemon
-
-.PickRhyhorn
-    ld b, 10
-    ld c, RHYHORN
-    jr .SetPokemon
-
-.PickRhydon
-    ld b, 40
-    ld c, RHYDON
-    jr .SetPokemon
-
-.PickChansey
-    ld b, 30
-    ld c, CHANSEY
-    jr .SetPokemon
-
-.PickTangela
-    ld b, 30
-    ld c, TANGELA
-    jr .SetPokemon
-
-.PickKangaskhan
-    ld b, 30
-    ld c, KANGASKHAN
-    jr .SetPokemon
-
-.PickHorsea
-    ld b, 10
-    ld c, HORSEA
-    jr .SetPokemon
-
-.PickSeadra
-    ld b, 40
-    ld c, SEADRA
-    jr .SetPokemon
-
-.PickGoldeen
-    ld b, 10
-    ld c, GOLDEEN
-    jr .SetPokemon
-
-.PickSeaking
-    ld b, 26
-    ld c, SEAKING
-    jr .SetPokemon
-
-.PickStaryu
-    ld b, 26
-    ld c, STARYU
-    jr .SetPokemon
-
-.PickStarmie
-    ld b, 26
-    ld c, STARMIE
-    jr .SetPokemon
-
-.PickScyther
-    ld b, 26
-    ld c, SCYTHER
-    jr .SetPokemon
-
-.PickJynx
-    ld b, 26
-    ld c, JYNX
-    jr .SetPokemon
-
-.PickElectabuzz
-    ld b, 26
-    ld c, ELECTABUZZ
-    jr .SetPokemon
-
-.PickMagmar
-    ld b, 26
-    ld c, MAGMAR
-    jr .SetPokemon
-
-.PickPinsir
-    ld b, 26
-    ld c, PINSIR
-    jr .SetPokemon
-
-.PickTauros
-    ld b, 26
-    ld c, TAUROS
-    jr .SetPokemon
-
-.PickMagikarp
-    ld b, 26
-    ld c, MAGIKARP
-    jr .SetPokemon
-
-.PickGyarados
-    ld b, 26
-    ld c, GYARADOS
-    jr .SetPokemon
-
-.PickLapras
-    ld b, 26
-    ld c, LAPRAS
-    jr .SetPokemon
-
-.PickDitto
-    ld b, 26
-    ld c, DITTO
-    jr .SetPokemon
-
-.PickEevee
-    ld b, 26
-    ld c, EEVEE
-    jr .SetPokemon
-
-.PickVaporeon
-    ld b, 26
-    ld c, VAPOREON
-    jr .SetPokemon
-
-.PickFlareon
-    ld b, 26
-    ld c, FLAREON
-    jr .SetPokemon
-
-.PickJolteon
-    ld b, 26
-    ld c, JOLTEON
-    jr .SetPokemon
-
-.PickPorygon
-    ld b, 26
-    ld c, PORYGON
-    jr .SetPokemon
 
 .SetPokemon
     ld e, $1 ; $1 si hay un mordisco
