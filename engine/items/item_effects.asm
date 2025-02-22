@@ -1971,35 +1971,7 @@ ChooseGoodRodPokemon:
     jr z, .PickMachop
     cp 61 
     jr z, .PickMachoke
-    cp 62 
-    jr z, .PickMachamp
-    cp 63 
-    jr z, .PickBellsprout
-    cp 64 
-    jr z, .PickWeepinbell
-    cp 65 
-    jr z, .PickVictreebel
-    cp 66 
-    jr z, .PickTentacool
-    cp 67 
-    jr z, .PickTentacruel
-    cp 68 
-    jr z, .PickGeodude
-    cp 69 
-    jr z, .PickGraveler
-    cp 70 
-    jr z, .PickGolem
-    cp 71 
-    jr z, .PickPonyta
-    cp 72 
-    jr z, .PickRapidash
-    cp 73 
-    jr z, .PickSlowpoke
-    cp 74 
-    jr z, .PickSlowbro
-    cp 75 
-    jr z, .PickMagnemite
-
+    
 .PickBlastoise
     ld b, 36
     ld c, BLASTOISE
@@ -2273,81 +2245,6 @@ ChooseGoodRodPokemon:
 .PickMachoke
     ld b, 20
     ld c, MACHOKE
-    jr .SetPokemon
-
-.PickMachamp
-    ld b, 40
-    ld c, MACHAMP
-    jr .SetPokemon
-
-.PickBellsprout
-    ld b, 10
-    ld c, BELLSPROUT
-    jr .SetPokemon
-
-.PickWeepinbell
-    ld b, 20
-    ld c, WEEPINBELL
-    jr .SetPokemon
-
-.PickVictreebel
-    ld b, 40
-    ld c, VICTREEBEL
-    jr .SetPokemon
-
-.PickTentacool
-    ld b, 10
-    ld c, TENTACOOL
-    jr .SetPokemon
-
-.PickTentacruel
-    ld b, 30
-    ld c, TENTACRUEL
-    jr .SetPokemon
-
-.PickGeodude
-    ld b, 10
-    ld c, GEODUDE
-    jr .SetPokemon
-
-.PickGraveler
-    ld b, 20
-    ld c, GRAVELER
-    jr .SetPokemon
-
-.PickGolem
-    ld b, 40
-    ld c, GOLEM
-    jr .SetPokemon
-
-.PickPonyta
-    ld b, 10
-    ld c, PONYTA
-    jr .SetPokemon
-
-.PickRapidash
-    ld b, 40
-    ld c, RAPIDASH
-    jr .SetPokemon
-
-.PickSlowpoke
-    ld b, 10
-    ld c, SLOWPOKE
-    jr .SetPokemon
-
-.PickSlowbro
-    ld b, 35
-    ld c, SLOWBRO
-    jr .SetPokemon
-
-.PickMagnemite
-    ld b, 10
-    ld c, MAGNEMITE
-    jr .SetPokemon
-
-.PickMagneton
-    ld b, 30
-    ld c, MAGNETON
     jr .SetPokemon
 
 .PickFarfetchd
