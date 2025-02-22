@@ -3242,8 +3242,6 @@ cp 131
 jr z, .PickFlareon
 cp 132
 jr z, .PickPorygon
-cp 133
-jr z, .PickOmanyte
 
 .PickShellder
     ld b, 10
