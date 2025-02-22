@@ -2871,18 +2871,19 @@ ReadSuperRodData:
     ld e, a
     ld d, 0
     add hl, de
-    ld a, [hl]    ; 
-    ld c, a       ; 
+    ld a, [hl]    ; ✅ Asegurar que `a` contiene un Pokémon válido
+    ld c, a       ; ✅ Guardar la especie del Pokémon
 
-    ld b, a         ; Guardamos `a` en `b`
-    ld a, 10        ; Cargamos 10 en `a`
-    call DivideBy10  ; Llamamos a una subrutina para `b / 10`
-    add 10          ; Sumamos 10 al resultado
-    ld b, a         ; Guardamos el nuevo nivel en `b`
+    cp 1
+    jr c, .ChoosePokemon ; Si `a` es 0 (no existe), repetir
 
-    ld e, $1 ; $1 si hay un mordisco
+    ld b, 10 + (e / 10)  ; ✅ Asignar nivel base válido
+    cp 152
+    jr nc, .ChoosePokemon ; Evitar valores fuera de rango
+
+    ld [wCurOpponent], a  ; ✅ Establecer el Pokémon para la batalla
+    ld e, $1              ; ✅ Indicar que hay un Pokémon salvaje
     ret
-
 
 PokemonTable:
     db BULBASAUR, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD
