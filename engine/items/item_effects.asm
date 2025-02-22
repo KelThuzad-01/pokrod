@@ -1,3 +1,6 @@
+VALID_SUPER_ROD_POKEMON_COUNT equ 90  ; Número de Pokémon válidos en Super Rod
+VALID_GOOD_ROD_POKEMON_COUNT equ 80  ; Número de Pokémon válidos para la Good Rod
+
 UseItem_::
 	ld a, 1
 	ld [wActionResultOrTookBattleTurn], a ; initialise to success value
@@ -1865,8 +1868,6 @@ GoodRodPokemonTable:
     db $62, $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
     db $70, $71, $72, $74, $75, $76, $77, $78, $7B, $7C, $7D, $80
 
-VALID_GOOD_ROD_POKEMON_COUNT equ 80  ; Número de Pokémon válidos para la Good Rod
-
 
 
 ItemUseSuperRod:
@@ -2899,9 +2900,6 @@ SuperRodPokemonTable:
     db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
     db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
-
-VALID_SUPER_ROD_POKEMON_COUNT equ 90  ; Número de Pokémon válidos en Super Rod
-
 
 
 INCLUDE "data/wild/super_rod.asm"
