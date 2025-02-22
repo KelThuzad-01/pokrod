@@ -1843,294 +1843,30 @@ ItemUseGoodRod:
 
 ChooseGoodRodPokemon:
     call Random
-    and %00111111  ; Limitar a valores entre 0 y 63
-    cp 40          ; Si el valor es 40 o mayor, repetir
-    jr nc, ChooseGoodRodPokemon
+    and %0111111  ; Generar un número entre 0 y 127 (ajustable)
+    cp VALID_GOOD_ROD_POKEMON_COUNT  ; Verificar que el número generado sea válido
+    jr nc, ChooseGoodRodPokemon  ; Si no es válido, generar otro
 
-    cp 0  
-    jr z, .PickCaterpie
-    cp 1  
-    jr z, .PickMetapod
-    cp 2  
-    jr z, .PickButterfree
-    cp 3  
-    jr z, .PickWeedle
-    cp 4  
-    jr z, .PickKakuna
-    cp 5  
-    jr z, .PickBeedrill
-    cp 6  
-    jr z, .PickPidgey
-    cp 7  
-    jr z, .PickPidgeotto
-    cp 8  
-    jr z, .PickPidgeot
-    cp 9  
-    jr z, .PickRattata
-    cp 10 
-    jr z, .PickRaticate
-    cp 11 
-    jr z, .PickSpearow
-    cp 12 
-    jr z, .PickFearow
-    cp 13 
-    jr z, .PickEkans
-    cp 14 
-    jr z, .PickArbok
-    cp 15 
-    jr z, .PickPikachu
-    cp 16 
-    jr z, .PickRaichu
-    cp 17 
-    jr z, .PickSandshrew
-    cp 18 
-    jr z, .PickSandslash
-    cp 19 
-    jr z, .PickNidoranF
-    cp 20 
-    jr z, .PickZubat
-    cp 21 
-    jr z, .PickGolbat
-    cp 22 
-    jr z, .PickOddish
-    cp 23 
-    jr z, .PickGloom
-    cp 24 
-    jr z, .PickVileplume
-    cp 25 
-    jr z, .PickParas
-    cp 26 
-    jr z, .PickParasect
-    cp 27 
-    jr z, .PickVenonat
-    cp 28 
-    jr z, .PickVenomoth
-    cp 29 
-    jr z, .PickDiglett
-    cp 30 
-    jr z, .PickDugtrio
-    cp 31 
-    jr z, .PickMeowth
-    cp 32 
-    jr z, .PickPersian
-    cp 33 
-    jr z, .PickFarfetchd
-    cp 34 
-    jr z, .PickDoduo
-    cp 35 
-    jr z, .PickDodrio
-    cp 36 
-    jr z, .PickSeel
-    cp 37 
-    jr z, .PickDewgong
-    cp 38 
-    jr z, .PickGrimer
-    cp 39 
-    jr z, .PickMuk
-.PickCaterpie
-    ld b, 7
-    ld c, CATERPIE
-    jp .SetPokemon
+    ld hl, GoodRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos para la Good Rod
+    add l
+    ld l, a
+    ld a, [hl]  ; Obtener el valor hexadecimal del Pokémon
+    ld c, a  ; Guardarlo en C para la lógica del juego
 
-.PickMetapod
-    ld b, 10
-    ld c, METAPOD
-    jp .SetPokemon
+    jp SetPokemon  ; Saltar a la rutina de asignación del Pokémon
 
-.PickButterfree
-    ld b, 14
-    ld c, BUTTERFREE
-    jp .SetPokemon
+GoodRodPokemonTable:
+    db $01, $02, $03, $05, $07, $09, $0A, $0B, $0D, $0E, $0F  ; Lista de Pokémon válidos para Good Rod
+    db $10, $11, $12, $14, $15, $16, $18, $19, $1A, $1B, $1C, $1D
+    db $21, $22, $23, $25, $26, $27, $28, $29, $2A, $2B, $2C, $2E
+    db $30, $31, $34, $35, $36, $37, $38, $3A, $3B, $3C, $3D, $3E
+    db $40, $41, $42, $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D
+    db $52, $53, $54, $55, $58, $59, $5A, $5B, $5C, $5D, $60, $61
+    db $62, $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
+    db $70, $71, $72, $74, $75, $76, $77, $78, $7B, $7C, $7D, $80
 
-.PickWeedle
-    ld b, 7
-    ld c, WEEDLE
-    jp .SetPokemon
+VALID_GOOD_ROD_POKEMON_COUNT equ 80  ; Número de Pokémon válidos para la Good Rod
 
-.PickKakuna
-    ld b, 10
-    ld c, KAKUNA
-    jp .SetPokemon
-
-.PickBeedrill
-    ld b, 14
-    ld c, BEEDRILL
-    jp .SetPokemon
-
-.PickPidgey
-    ld b, 6
-    ld c, PIDGEY
-    jp .SetPokemon
-
-.PickPidgeotto
-    ld b, 16
-    ld c, PIDGEOTTO
-    jp .SetPokemon
-
-.PickPidgeot
-    ld b, 36
-    ld c, PIDGEOT
-    jp .SetPokemon
-
-.PickRattata
-    ld b, 6
-    ld c, RATTATA
-    jp .SetPokemon
-
-.PickRaticate
-    ld b, 20
-    ld c, RATICATE
-    jp .SetPokemon
-
-.PickSpearow
-    ld b, 6
-    ld c, SPEAROW
-    jp .SetPokemon
-
-.PickFearow
-    ld b, 20
-    ld c, FEAROW
-    jp .SetPokemon
-
-.PickEkans
-    ld b, 10
-    ld c, EKANS
-    jp .SetPokemon
-
-.PickArbok
-    ld b, 30
-    ld c, ARBOK
-    jp .SetPokemon
-
-.PickPikachu
-    ld b, 10
-    ld c, PIKACHU
-    jp .SetPokemon
-
-.PickRaichu
-    ld b, 30
-    ld c, RAICHU
-    jp .SetPokemon
-
-.PickSandshrew
-    ld b, 10
-    ld c, SANDSHREW
-    jp .SetPokemon
-
-.PickSandslash
-    ld b, 30
-    ld c, SANDSLASH
-    jp .SetPokemon
-
-.PickNidoranF
-    ld b, 10
-    ld c, NIDORAN_F
-    jp .SetPokemon
-
-.PickZubat
-    ld b, 10
-    ld c, ZUBAT
-    jp .SetPokemon
-
-.PickGolbat
-    ld b, 30
-    ld c, GOLBAT
-    jp .SetPokemon
-
-.PickOddish
-    ld b, 10
-    ld c, ODDISH
-    jp .SetPokemon
-
-.PickGloom
-    ld b, 20
-    ld c, GLOOM
-    jp .SetPokemon
-
-.PickVileplume
-    ld b, 30
-    ld c, VILEPLUME
-    jp .SetPokemon
-
-.PickParas
-    ld b, 8
-    ld c, PARAS
-    jp .SetPokemon
-
-.PickParasect
-    ld b, 38
-    ld c, PARASECT
-    jp .SetPokemon
-
-.PickVenonat
-    ld b, 38
-    ld c, VENONAT
-    jp .SetPokemon
-
-.PickVenomoth
-    ld b, 38
-    ld c, VENOMOTH
-    jp .SetPokemon
-
-.PickDiglett
-    ld b, 10
-    ld c, DIGLETT
-    jp .SetPokemon
-
-.PickDugtrio
-    ld b, 30
-    ld c, DUGTRIO
-    jp .SetPokemon
-
-.PickMeowth
-    ld b, 10
-    ld c, MEOWTH
-    jp .SetPokemon
-
-.PickPersian
-    ld b, 30
-    ld c, PERSIAN
-    jp .SetPokemon
-
-.PickFarfetchd
-    ld b, 20
-    ld c, FARFETCHD
-    jp .SetPokemon
-
-.PickDoduo
-    ld b, 10
-    ld c, DODUO
-    jp .SetPokemon
-
-.PickDodrio
-    ld b, 30
-    ld c, DODRIO
-    jp .SetPokemon
-
-.PickSeel
-    ld b, 10
-    ld c, SEEL
-    jp .SetPokemon
-
-.PickDewgong
-    ld b, 30
-    ld c, DEWGONG
-    jp .SetPokemon
-
-.PickGrimer
-    ld b, 10
-    ld c, GRIMER
-    jp .SetPokemon
-
-.PickMuk
-    ld b, 40
-    ld c, MUK
-    jp .SetPokemon
-
-
-.SetPokemon
-    ld e, $1 ; Indicar que hay un mordisco
-    ret
 
 
 ItemUseSuperRod:
@@ -3116,227 +2852,56 @@ IsNextTileShoreOrWater:
 INCLUDE "data/tilesets/water_tilesets.asm"
 
 ReadSuperRodData:
-; return e = 2 if no fish on this map
-; return e = 1 if a bite, bc = level,species
-; return e = 0 if no bite
-	ld a, [wCurMap]
-	ld de, 3 ; each fishing group is three bytes wide
-	ld hl, SuperRodData
-	call IsInArray
-	jr c, .ReadFishingGroup
-	ld e, $2 ; $2 if no fishing groups found
-	ret
-
-.ReadFishingGroup
+    ; Verificar si hay Pokémon disponibles en el mapa actual
     ld a, [wCurMap]
-    ld de, 3 ; cada grupo de pesca tiene 3 bytes
+    ld de, 3  ; Cada grupo de pesca tiene 3 bytes
     ld hl, SuperRodData
     call IsInArray
-    jr c, .ChoosePokemon
-    ld e, $2 ; $2 si no hay Pokémon en esta área
+    jr c, .ReadFishingGroup  ; Si hay un grupo de pesca, proceder
+
+    ld e, $2  ; $2 si no hay Pokémon en esta área
     ret
 
-.ChoosePokemon
+.ReadFishingGroup:
+    ; Verificar si hay un grupo de pesca válido
+    ld a, [wCurMap]
+    ld de, 3
+    ld hl, SuperRodData
+    call IsInArray
+    jr c, .ChoosePokemon  ; Si hay Pokémon, proceder con la selección
+
+    ld e, $2  ; Si no hay Pokémon en esta área
+    ret
+
+.ChoosePokemon:
     call Random
-    and %00111111  ; Limitar el rango de 0 a 63 (para asegurar valores dentro de 0-46)
-    cp 47          ; Si el número generado es mayor a 46, repetir
+    and %0111111  ; Generamos un número entre 0 y 127
+    cp VALID_SUPER_ROD_POKEMON_COUNT  ; Si es mayor que el total de Pokémon válidos, repetir
     jr nc, .ChoosePokemon
 
-    
-    cp 0
-    jr z, .PickShellder
-    cp 1
-    jr z, .PickCloyster
-    cp 2
-    jr z, .PickGastly
-    cp 3
-    jr z, .PickHaunter
-    cp 4
-    jr z, .PickGengar
-    cp 5
-    jr z, .PickOnix
-    cp 6
-    jr z, .PickDrowzee
-    cp 7
-    jr z, .PickHypno
-    cp 8
-    jr z, .PickKrabby
-    cp 9
-    jr z, .PickKingler
-    cp 10
-    jr z, .PickVoltorb
-    cp 11
-    jr z, .PickElectrode
-    cp 12
-    jr z, .PickExeggcute
-    cp 13
-    jr z, .PickExeggutor
-    cp 14
-    jr z, .PickCubone
-    cp 15
-    jr z, .PickMarowak
-    cp 16
-    jr z, .PickHitmonlee
-    cp 17
-    jr z, .PickHitmonchan
-    cp 18
-    jr z, .PickLickitung
-    cp 19
-    jr z, .PickKoffing
-    cp 20
-    jr z, .PickWeezing
-    cp 21
-    jr z, .PickRhyhorn
-    cp 22
-    jr z, .PickRhydon
-    cp 23
-    jr z, .PickChansey
-    cp 24
-    jr z, .PickTangela
-    cp 25
-    jr z, .PickKangaskhan
-    cp 26
-    jr z, .PickHorsea
-    cp 27
-    jr z, .PickSeadra
-    cp 28
-    jr z, .PickGoldeen
-    cp 29
-    jr z, .PickSeaking
-    cp 30
-    jr z, .PickStaryu
-    cp 31
-    jr z, .PickStarmie
-    cp 32
-    jr z, .PickScyther
-    cp 33
-    jr z, .PickJynx
-    cp 34
-    jr z, .PickElectabuzz
-    cp 35
-    jr z, .PickMagmar
-    cp 36
-    jr z, .PickPinsir
-    cp 37
-    jr z, .PickTauros
-    cp 38
-    jr z, .PickMagikarp
-    cp 39
-    jr z, .PickGyarados
-    cp 40
-    jr z, .PickLapras
-    cp 41
-    jr z, .PickDitto
-    cp 42
-    jr z, .PickEevee
-    cp 43
-    jr z, .PickVaporeon
-    cp 44
-    jr z, .PickJolteon
-    cp 45
-    jr z, .PickFlareon
-    cp 46
-    jr z, .PickPorygon
+    ld hl, SuperRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos
+    add l
+    ld l, a
+    ld a, [hl]  ; Obtener el ID del Pokémon
+    ld c, a  ; Guardarlo en C
 
-    cp 85
-    jp z, .PickShellder
-    cp 86
-    jp z, .PickCloyster
-    cp 87
-    jp z, .PickGastly
-    cp 88
-    jp z, .PickHaunter
-    cp 89
-    jp z, .PickGengar
-    cp 90
-    jp z, .PickOnix
-    cp 91
-    jp z, .PickDrowzee
-    cp 92
-    jp z, .PickHypno
-    cp 93
-    jp z, .PickKrabby
-    cp 94
-    jp z, .PickKingler
-    cp 95
-    jp z, .PickVoltorb
-    cp 96
-    jp z, .PickElectrode
-    cp 97
-    jp z, .PickExeggcute
-    cp 98
-    jp z, .PickExeggutor
-    cp 99
-    jp z, .PickCubone
-    cp 100
-    jp z, .PickMarowak
-    cp 101
-    jp z, .PickHitmonlee
-    cp 102
-    jp z, .PickHitmonchan
-    cp 103
-    jp z, .PickLickitung
-    cp 104
-    jp z, .PickKoffing
-    cp 105
-    jp z, .PickWeezing
-    cp 106
-    jp z, .PickRhyhorn
-    cp 107
-    jp z, .PickRhydon
-    cp 108
-    jp z, .PickChansey
-    cp 109
-    jp z, .PickTangela
-    cp 110
-    jp z, .PickKangaskhan
-    cp 111
-    jp z, .PickHorsea
-    cp 112
-    jp z, .PickSeadra
-    cp 113
-    jp z, .PickGoldeen
-    cp 114
-    jp z, .PickSeaking
-    cp 115
-    jp z, .PickStaryu
-    cp 116
-    jp z, .PickStarmie
-    cp 117
-    jp z, .PickScyther
-    cp 119
-    jp z, .PickJynx
-    cp 120
-    jp z, .PickElectabuzz
-    cp 121
-    jp z, .PickMagmar
-    cp 122
-    jp z, .PickPinsir
-    cp 123
-    jp z, .PickTauros
-    cp 124
-    jp z, .PickMagikarp
-    cp 125
-    jp z, .PickGyarados
-    cp 126
-    jp z, .PickLapras
-    cp 127
-    jp z, .PickDitto
-    cp 128
-    jp z, .PickEevee
-    cp 129
-    jp z, .PickVaporeon
-    cp 130
-    jp z, .PickJolteon
-    cp 131
-    jp z, .PickFlareon
-    cp 132
-    jp z, .PickPorygon
+    ld a, $1  ; Indicar que hay un mordisco
+    ld e, a  ; Guardarlo en E
+    jp RodResponse  ; Saltar a la respuesta de pesca
 
+SuperRodPokemonTable:
+    db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
+    db $11, $12, $13, $16, $17, $18, $19, $1A, $1B, $1C, $1E
+    db $22, $23, $24, $26, $27, $29, $2D, $2E, $2F, $30, $31
+    db $34, $35, $36, $37, $38, $3B, $3C, $3E, $40, $41, $42
+    db $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $52, $53
+    db $55, $58, $59, $5A, $5B, $5C, $5D, $5E, $60, $61, $62
+    db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
+    db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
+    db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
-.SetPokemon
-    ld e, $1 ; $1 si hay un mordisco
-    ret
+VALID_SUPER_ROD_POKEMON_COUNT equ 90  ; Número de Pokémon válidos en Super Rod
+
 
 
 INCLUDE "data/wild/super_rod.asm"
