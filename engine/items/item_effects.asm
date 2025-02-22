@@ -1847,8 +1847,6 @@ ChooseGoodRodPokemon:
     cp 76
     jr nc, ChooseGoodRodPokemon ; Repetir si el número es mayor a 75
     
-    cp 0  
-    jr z, .PickMagneton
     cp 1  
     jr z, .PickFarfetchd
     cp 2  
@@ -1927,7 +1925,7 @@ ChooseGoodRodPokemon:
     jr z, .PickDugtrio
     cp 50 
     jr z, .PickMeowth
-    cp 51 
+    cp 0 
     jr z, .PickPersian
     
 .PickBlastoise
