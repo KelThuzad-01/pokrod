@@ -1,6 +1,3 @@
-VALID_SUPER_ROD_POKEMON_COUNT equ 90  ; Número de Pokémon válidos en Super Rod
-VALID_GOOD_ROD_POKEMON_COUNT equ 80  ; Número de Pokémon válidos para la Good Rod
-
 UseItem_::
 	ld a, 1
 	ld [wActionResultOrTookBattleTurn], a ; initialise to success value
@@ -1847,8 +1844,8 @@ ItemUseGoodRod:
 ChooseGoodRodPokemon:
     call Random
     and %0111111  ; Generar un número entre 0 y 127 (ajustable)
-    cp VALID_GOOD_ROD_POKEMON_COUNT  ; Verificar que el número generado sea válido
-    jr nc, ChooseGoodRodPokemon  ; Si no es válido, generar otro
+    cp 50
+    jr nc, .ChoosePokemon  ; Si el número es mayor o igual a 90, repetir
 
     ld hl, GoodRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos para la Good Rod
     add l
@@ -1867,8 +1864,6 @@ GoodRodPokemonTable:
     db $52, $53, $54, $55, $58, $59, $5A, $5B, $5C, $5D, $60, $61
     db $62, $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
     db $70, $71, $72, $74, $75, $76, $77, $78, $7B, $7C, $7D, $80
-
-
 
 ItemUseSuperRod:
 	call FishingInit
@@ -2877,8 +2872,8 @@ ReadSuperRodData:
 .ChoosePokemon:
     call Random
     and %0111111  ; Generamos un número entre 0 y 127
-    cp VALID_SUPER_ROD_POKEMON_COUNT  ; Si es mayor que el total de Pokémon válidos, repetir
-    jr nc, .ChoosePokemon
+    cp 90
+    jr nc, .ChoosePokemon  ; Si el número es mayor o igual a 90, repetir
 
     ld hl, SuperRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos
     add l
