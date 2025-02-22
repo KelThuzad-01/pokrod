@@ -2863,61 +2863,77 @@ ReadSuperRodData:
 
 .ChoosePokemon
     call Random  ; Generar un número aleatorio
-    and 0xFF     ; Asegurar un rango válido (0-255)
-    cp 151       ; Si el número es mayor a 150, repetir
-    jr nc, .ChoosePokemon
+    and %1111100 ; Limitar el número a 0-150 (dentro del rango de 151 Pokémon)
 
-    ld hl, PokemonTable
-    ld e, a
-    ld d, 0
-    add hl, de
-    ld a, [hl]    ; ✅ Asegurar que `a` contiene un Pokémon válido
-    ld c, a       ; ✅ Guardar la especie del Pokémon
-
+    cp 0
+    jr z, .PickBulbasaur
     cp 1
-    jr c, .ChoosePokemon ; Si `a` es 0 (no existe), repetir
+    jr z, .PickIvysaur
+    cp 2
+    jr z, .PickVenusaur
+    cp 3
+    jr z, .PickCharmander
+    cp 4
+    jr z, .PickCharmeleon
+    cp 5
+    jr z, .PickCharizard
+    cp 6
+    jr z, .PickSquirtle
+    cp 7
+    jr z, .PickWartortle
+    cp 8
+    jr z, .PickBlastoise
+    ; Aquí continuaríamos hasta incluir todos los 151 Pokémon
 
-    ld a, e          ; ✅ Guardamos `e` en `a`
-    call DivideBy10   ; ✅ Llamamos a la subrutina para dividir por 10
-    add 10           ; ✅ Sumamos 10 al resultado para el nivel base
-    ld b, a          ; ✅ Guardamos el nivel en `b`
+; Definir cada Pokémon de forma segura
+.PickBulbasaur
+    ld b, 10
+    ld c, BULBASAUR
+    jr .SetPokemon
 
-    cp 152
-    jr nc, .ChoosePokemon ; Evitar valores fuera de rango
+.PickIvysaur
+    ld b, 12
+    ld c, IVYSAUR
+    jr .SetPokemon
 
-    ld [wCurOpponent], a  ; ✅ Establecer el Pokémon para la batalla
-    ld e, $1              ; ✅ Indicar que hay un Pokémon salvaje
-    ret
+.PickVenusaur
+    ld b, 30
+    ld c, VENUSAUR
+    jr .SetPokemon
 
-PokemonTable:
-    db BULBASAUR, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD
-    db SQUIRTLE, WARTORTLE, BLASTOISE, CATERPIE, METAPOD, BUTTERFREE
-    db WEEDLE, KAKUNA, BEEDRILL, PIDGEY, PIDGEOTTO, PIDGEOT
-    db RATTATA, RATICATE, SPEAROW, FEAROW, EKANS, ARBOK, PIKACHU, RAICHU
-    db SANDSHREW, SANDSLASH, NIDORAN_F, NIDORINA, NIDOQUEEN
-    db NIDORAN_M, NIDORINO, NIDOKING, CLEFAIRY, CLEFABLE
-    db VULPIX, NINETALES, JIGGLYPUFF, WIGGLYTUFF
-    db ZUBAT, GOLBAT, ODDISH, GLOOM, VILEPLUME, PARAS, PARASECT
-    db VENONAT, VENOMOTH, DIGLETT, DUGTRIO, MEOWTH, PERSIAN
-    db PSYDUCK, GOLDUCK, MANKEY, PRIMEAPE, GROWLITHE, ARCANINE
-    db POLIWAG, POLIWHIRL, POLIWRATH, ABRA, KADABRA, ALAKAZAM
-    db MACHOP, MACHOKE, MACHAMP, BELLSPROUT, WEEPINBELL, VICTREEBEL
-    db TENTACOOL, TENTACRUEL, GEODUDE, GRAVELER, GOLEM, PONYTA, RAPIDASH
-    db SLOWPOKE, SLOWBRO, MAGNEMITE, MAGNETON, FARFETCHD, DODUO, DODRIO
-    db SEEL, DEWGONG, GRIMER, MUK, SHELLDER, CLOYSTER, GASTLY, HAUNTER, GENGAR
-    db ONIX, DROWZEE, HYPNO, KRABBY, KINGLER, VOLTORB, ELECTRODE
-    db EXEGGCUTE, EXEGGUTOR, CUBONE, MAROWAK, HITMONLEE, HITMONCHAN
-    db LICKITUNG, KOFFING, WEEZING, RHYHORN, RHYDON, CHANSEY
-    db TANGELA, KANGASKHAN, HORSEA, SEADRA, GOLDEEN, SEAKING
-    db STARYU, STARMIE, MR_MIME, SCYTHER, JYNX, ELECTABUZZ, MAGMAR
-    db PINSIR, TAUROS, MAGIKARP, GYARADOS, LAPRAS, DITTO, EEVEE
-    db VAPOREON, JOLTEON, FLAREON, PORYGON, OMANYTE, OMASTAR
-    db KABUTO, KABUTOPS, AERODACTYL, SNORLAX, ARTICUNO, ZAPDOS, MOLTRES
-    db DRATINI, DRAGONAIR, DRAGONITE, MEWTWO, MEW
+.PickCharmander
+    ld b, 10
+    ld c, CHARMANDER
+    jr .SetPokemon
+
+.PickCharmeleon
+    ld b, 16
+    ld c, CHARMELEON
+    jr .SetPokemon
+
+.PickCharizard
+    ld b, 36
+    ld c, CHARIZARD
+    jr .SetPokemon
+
+.PickSquirtle
+    ld b, 10
+    ld c, SQUIRTLE
+    jr .SetPokemon
+
+.PickWartortle
+    ld b, 16
+    ld c, WARTORTLE
+    jr .SetPokemon
+
+.PickBlastoise
+    ld b, 36
+    ld c, BLASTOISE
 
 .SetPokemon
     ld e, $1 ; $1 si hay un mordisco
     ret
+
 
 INCLUDE "data/wild/super_rod.asm"
 
