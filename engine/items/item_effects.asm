@@ -3419,24 +3419,6 @@ ReadSuperRodData:
     cp 75
     jr nc, .ChoosePokemon  ; Si el número es mayor a 74, repetir
     add 76  ; Desplazar el rango a 76-150
-
-
-    cp 77
-    jr z, .PickBulbasaur
-    cp 78
-    jr z, .PickIvysaur
-    cp 79
-    jr z, .PickVenusaur
-    cp 80
-    jr z, .PickCharmander
-    cp 81
-    jr z, .PickCharmeleon
-    cp 82
-    jr z, .PickCharizard
-    cp 83
-    jr z, .PickSquirtle
-    cp 84
-    jr z, .PickWartortle
     
 cp 85
 jr z, .PickShellder
@@ -3570,49 +3552,6 @@ cp 149
 jr z, .PickGrowlithe
 cp 150 
 jr z, .PickArcanine
-
-
-; Definir cada Pokémon de forma segura
-.PickBulbasaur
-    ld b, 10
-    ld c, BULBASAUR
-    jr .SetPokemon
-
-.PickIvysaur
-    ld b, 12
-    ld c, IVYSAUR
-    jr .SetPokemon
-
-.PickVenusaur
-    ld b, 30
-    ld c, VENUSAUR
-    jr .SetPokemon
-
-.PickCharmander
-    ld b, 10
-    ld c, CHARMANDER
-    jr .SetPokemon
-
-.PickCharmeleon
-    ld b, 16
-    ld c, CHARMELEON
-    jr .SetPokemon
-
-.PickCharizard
-    ld b, 36
-    ld c, CHARIZARD
-    jr .SetPokemon
-
-.PickSquirtle
-    ld b, 10
-    ld c, SQUIRTLE
-    jr .SetPokemon
-
-.PickWartortle
-    ld b, 16
-    ld c, WARTORTLE
-    jr .SetPokemon
-
 
 .PickShellder
     ld b, 10
