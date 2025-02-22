@@ -3411,7 +3411,7 @@ jr z, .PickOmanyte
 
 .PickMrMime
     ld b, 26
-    ld c, MRMIME
+    ld c, MR.MIME
     jr .SetPokemon
 
 .PickScyther
@@ -3419,14 +3419,14 @@ jr z, .PickOmanyte
     ld c, SCYTHER
     jr .SetPokemon
 
-.PickJinx
+.PickJynx
     ld b, 26
-    ld c, JINX
+    ld c, JYNX
     jr .SetPokemon
 
-.PickElectrabuzz
+.PickElectabuzz
     ld b, 26
-    ld c, ELECTRABUZZ
+    ld c, ELECTABUZZ
     jr .SetPokemon
 
 .PickMagmar
