@@ -1929,26 +1929,6 @@ ChooseGoodRodPokemon:
     jr z, .PickMeowth
     cp 51 
     jr z, .PickPersian
-    cp 52 
-    jr z, .PickPsyduck
-    cp 53 
-    jr z, .PickGolduck
-    cp 54 
-    jr z, .PickPoliwag
-    cp 55 
-    jr z, .PickPoliwhirl
-    cp 56 
-    jr z, .PickPoliwrath
-    cp 57 
-    jr z, .PickAbra
-    cp 58 
-    jr z, .PickKadabra
-    cp 59 
-    jr z, .PickAlakazam
-    cp 60 
-    jr z, .PickMachop
-    cp 61 
-    jr z, .PickMachoke
     
 .PickBlastoise
     ld b, 36
@@ -2118,56 +2098,6 @@ ChooseGoodRodPokemon:
 .PickPersian
     ld b, 30
     ld c, PERSIAN
-    jr .SetPokemon
-
-.PickPsyduck
-    ld b, 10
-    ld c, PSYDUCK
-    jr .SetPokemon
-
-.PickGolduck
-    ld b, 30
-    ld c, GOLDUCK
-    jr .SetPokemon
-
-.PickPoliwag
-    ld b, 10
-    ld c, POLIWAG
-    jr .SetPokemon
-
-.PickPoliwhirl
-    ld b, 20
-    ld c, POLIWHIRL
-    jr .SetPokemon
-
-.PickPoliwrath
-    ld b, 40
-    ld c, POLIWRATH
-    jr .SetPokemon
-
-.PickAbra
-    ld b, 10
-    ld c, ABRA
-    jr .SetPokemon
-
-.PickKadabra
-    ld b, 16
-    ld c, KADABRA
-    jr .SetPokemon
-
-.PickAlakazam
-    ld b, 40
-    ld c, ALAKAZAM
-    jr .SetPokemon
-
-.PickMachop
-    ld b, 10
-    ld c, MACHOP
-    jr .SetPokemon
-
-.PickMachoke
-    ld b, 20
-    ld c, MACHOKE
     jr .SetPokemon
 
 .PickFarfetchd
