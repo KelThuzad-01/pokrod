@@ -2235,26 +2235,6 @@ ChooseGoodRodPokemon:
     ld c, GOLDUCK
     jr .SetPokemon
 
-.PickMankey
-    ld b, 10
-    ld c, MANKEY
-    jr .SetPokemon
-
-.PickPrimeape
-    ld b, 30
-    ld c, PRIMEAPE
-    jr .SetPokemon
-
-.PickGrowlithe
-    ld b, 10
-    ld c, GROWLITHE
-    jr .SetPokemon
-
-.PickArcanine
-    ld b, 40
-    ld c, ARCANINE
-    jr .SetPokemon
-
 .PickPoliwag
     ld b, 10
     ld c, POLIWAG
@@ -3518,40 +3498,6 @@ cp 132
 jr z, .PickPorygon
 cp 133
 jr z, .PickOmanyte
-cp 134
-jr z, .PickOmastar
-cp 135
-jr z, .PickKabuto
-cp 136
-jr z, .PickKabutops
-cp 137
-jr z, .PickAerodactyl
-cp 138 
-jr z, .PickSnorlax
-cp 139 
-jr z, .PickArticuno
-cp 140 
-jr z, .PickZapdos
-cp 141 
-jr z, .PickMoltres
-cp 142 
-jr z, .PickDratini
-cp 143 
-jr z, .PickDragonair
-cp 144 
-jr z, .PickDragonite
-cp 145 
-jr z, .PickMewtwo
-cp 146 
-jr z, .PickMew
-cp 147 
-jr z, .PickMankey
-cp 148 
-jr z, .PickPrimeape
-cp 149 
-jr z, .PickGrowlithe
-cp 150 
-jr z, .PickArcanine
 
 .PickShellder
     ld b, 10
@@ -3792,76 +3738,6 @@ jr z, .PickArcanine
     ld b, 26
     ld c, PORYGON
     jr .SetPokemon
-
-.PickOmanyte
-    ld b, 26
-    ld c, OMANYTE
-    jr .SetPokemon
-
-.PickKabutops
-    ld b, 26
-    ld c, KABUTOPS
-    jr .SetPokemon
-
-.PickOmastar
-    ld b, 26
-    ld c, OMASTAR
-    jr .SetPokemon
-
-.PickKabuto
-    ld b, 26
-    ld c, KABUTO
-    jr .SetPokemon
-
-.PickAerodactyl
-    ld b, 26
-    ld c, AERODACTYL
-    jr .SetPokemon
-
-.PickSnorlax
-    ld b, 26
-    ld c, SNORLAX
-    jr .SetPokemon
-
-.PickArticuno
-    ld b, 26
-    ld c, ARTICUNO
-    jr .SetPokemon
-
-.PickZapdos
-    ld b, 26
-    ld c, ZAPDOS
-    jr .SetPokemon
-
-.PickMoltres
-    ld b, 26
-    ld c, MOLTRES
-    jr .SetPokemon
-
-.PickDratini
-    ld b, 26
-    ld c, DRATINI
-    jr .SetPokemon
-
-.PickDragonair
-    ld b, 26
-    ld c, DRAGONAIR
-    jr .SetPokemon
-
-.PickDragonite
-    ld b, 26
-    ld c, DRAGONITE
-    jr .SetPokemon
-
-.PickMew
-    ld b, 50
-    ld c, MEW
-    jr .SetPokemon
-
-.PickMewtwo
-    ld b, 50
-    ld c, MEWTWO
-
 
 .SetPokemon
     ld e, $1 ; $1 si hay un mordisco
