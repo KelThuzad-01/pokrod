@@ -1903,28 +1903,6 @@ ChooseGoodRodPokemon:
     jr z, .PickSandslash
     cp 27 
     jr z, .PickNidoranF
-    cp 28 
-    jr z, .PickNidorina
-    cp 29 
-    jr z, .PickNidoqueen
-    cp 30 
-    jr z, .PickNidoranM
-    cp 31 
-    jr z, .PickNidorino
-    cp 32 
-    jr z, .PickNidoking
-    cp 33 
-    jr z, .PickClefairy
-    cp 34 
-    jr z, .PickClefable
-    cp 35 
-    jr z, .PickVulpix
-    cp 36 
-    jr z, .PickNinetales
-    cp 37 
-    jr z, .PickJigglypuff
-    cp 38 
-    jr z, .PickWigglytuff
     cp 39 
     jr z, .PickZubat
     cp 40 
@@ -2075,61 +2053,6 @@ ChooseGoodRodPokemon:
 .PickNidoranF
     ld b, 10
     ld c, NIDORAN_F
-    jr .SetPokemon
-
-.PickNidorina
-    ld b, 20
-    ld c, NIDORINA
-    jr .SetPokemon
-
-.PickNidoqueen
-    ld b, 35
-    ld c, NIDOQUEEN
-    jr .SetPokemon
-
-.PickNidoranM
-    ld b, 10
-    ld c, NIDORAN_M
-    jr .SetPokemon
-
-.PickNidorino
-    ld b, 20
-    ld c, NIDORINO
-    jr .SetPokemon
-
-.PickNidoking
-    ld b, 35
-    ld c, NIDOKING
-    jr .SetPokemon
-
-.PickClefairy
-    ld b, 10
-    ld c, CLEFAIRY
-    jr .SetPokemon
-
-.PickClefable
-    ld b, 30
-    ld c, CLEFABLE
-    jr .SetPokemon
-
-.PickVulpix
-    ld b, 10
-    ld c, VULPIX
-    jr .SetPokemon
-
-.PickNinetales
-    ld b, 30
-    ld c, NINETALES
-    jr .SetPokemon
-
-.PickJigglypuff
-    ld b, 10
-    ld c, JIGGLYPUFF
-    jr .SetPokemon
-
-.PickWigglytuff
-    ld b, 30
-    ld c, WIGGLYTUFF
     jr .SetPokemon
 
 .PickZubat
