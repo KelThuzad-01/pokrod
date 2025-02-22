@@ -2915,6 +2915,9 @@ PokemonTable:
     db KABUTO, KABUTOPS, AERODACTYL, SNORLAX, ARTICUNO, ZAPDOS, MOLTRES
     db DRATINI, DRAGONAIR, DRAGONITE, MEWTWO, MEW
 
+.SetPokemon
+    ld e, $1 ; $1 si hay un mordisco
+    ret
 
 INCLUDE "data/wild/super_rod.asm"
 
