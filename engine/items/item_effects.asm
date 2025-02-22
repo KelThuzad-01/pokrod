@@ -1847,7 +1847,87 @@ ChooseGoodRodPokemon:
     cp 40          ; Si el valor es 40 o mayor, repetir
     jr nc, ChooseGoodRodPokemon
 
-    
+    cp 0  
+    jr z, .PickCaterpie
+    cp 1  
+    jr z, .PickMetapod
+    cp 2  
+    jr z, .PickButterfree
+    cp 3  
+    jr z, .PickWeedle
+    cp 4  
+    jr z, .PickKakuna
+    cp 5  
+    jr z, .PickBeedrill
+    cp 6  
+    jr z, .PickPidgey
+    cp 7  
+    jr z, .PickPidgeotto
+    cp 8  
+    jr z, .PickPidgeot
+    cp 9  
+    jr z, .PickRattata
+    cp 10 
+    jr z, .PickRaticate
+    cp 11 
+    jr z, .PickSpearow
+    cp 12 
+    jr z, .PickFearow
+    cp 13 
+    jr z, .PickEkans
+    cp 14 
+    jr z, .PickArbok
+    cp 15 
+    jr z, .PickPikachu
+    cp 16 
+    jr z, .PickRaichu
+    cp 17 
+    jr z, .PickSandshrew
+    cp 18 
+    jr z, .PickSandslash
+    cp 19 
+    jr z, .PickNidoranF
+    cp 20 
+    jr z, .PickZubat
+    cp 21 
+    jr z, .PickGolbat
+    cp 22 
+    jr z, .PickOddish
+    cp 23 
+    jr z, .PickGloom
+    cp 24 
+    jr z, .PickVileplume
+    cp 25 
+    jr z, .PickParas
+    cp 26 
+    jr z, .PickParasect
+    cp 27 
+    jr z, .PickVenonat
+    cp 28 
+    jr z, .PickVenomoth
+    cp 29 
+    jr z, .PickDiglett
+    cp 30 
+    jr z, .PickDugtrio
+    cp 31 
+    jr z, .PickMeowth
+    cp 32 
+    jr z, .PickPersian
+    cp 33 
+    jr z, .PickFarfetchd
+    cp 34 
+    jr z, .PickDoduo
+    cp 35 
+    jr z, .PickDodrio
+    cp 36 
+    jr z, .PickSeel
+    cp 37 
+    jr z, .PickDewgong
+    cp 38 
+    jr z, .PickGrimer
+    cp 39 
+    jr z, .PickMuk
+
     cp 0  
     jr z, .PickCaterpie
     cp 1  
