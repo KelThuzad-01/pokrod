@@ -2877,7 +2877,11 @@ ReadSuperRodData:
     cp 1
     jr c, .ChoosePokemon ; Si `a` es 0 (no existe), repetir
 
-    ld b, 10 + (e / 10)  ; ✅ Asignar nivel base válido
+    ld a, e          ; ✅ Guardamos `e` en `a`
+    call DivideBy10   ; ✅ Llamamos a la subrutina para dividir por 10
+    add 10           ; ✅ Sumamos 10 al resultado para el nivel base
+    ld b, a          ; ✅ Guardamos el nivel en `b`
+
     cp 152
     jr nc, .ChoosePokemon ; Evitar valores fuera de rango
 
