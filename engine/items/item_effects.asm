@@ -3785,14 +3785,9 @@ jr z, .PickArcanine
     ld c, SCYTHER
     jr .SetPokemon
 
-.PickScyther
+.PickJinx
     ld b, 26
-    ld c, SCYTHER
-    jr .SetPokemon
-
-.PickScyther
-    ld b, 26
-    ld c, SCYTHER
+    ld c, JINX
     jr .SetPokemon
 
 .PickElectrabuzz
@@ -3853,16 +3848,6 @@ jr z, .PickArcanine
 .PickJolteon
     ld b, 26
     ld c, JOLTEON
-    jr .SetPokemon
-
-.PickMEWTWO
-    ld b, 70
-    ld c, MEWTWO
-    jr .SetPokemon
-
-.PickEevee
-    ld b, 26
-    ld c, EEVEE
     jr .SetPokemon
 
 .PickPorygon
