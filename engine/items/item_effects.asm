@@ -1843,295 +1843,92 @@ ItemUseGoodRod:
 
 ChooseGoodRodPokemon:
     call Random
-    and %0111111  ; Generamos un número entre 0 y 75 (para los primeros 75 Pokémon)
-    cp 76
-    jr nc, ChooseGoodRodPokemon ; Repetir si el número es mayor a 75
+    and %00111111  ; Limitar a valores entre 0 y 63
+    cp 40          ; Si el valor es 40 o mayor, repetir
+    jr nc, ChooseGoodRodPokemon
+
     
-    cp 1  
-    jr z, .PickFarfetchd
-    cp 2  
-    jr z, .PickDoduo
-    cp 3  
-    jr z, .PickDodrio
-    cp 4  
-    jr z, .PickSeel
-    cp 5  
-    jr z, .PickDewgong
-    cp 6  
-    jr z, .PickMuk
-    cp 7  
-    jr z, .PickBlastoise
-    cp 8  
+    cp 0  
     jr z, .PickCaterpie
-    cp 9  
+    cp 1  
     jr z, .PickMetapod
-    cp 10 
+    cp 2  
     jr z, .PickButterfree
-    cp 11 
+    cp 3  
     jr z, .PickWeedle
-    cp 12 
+    cp 4  
     jr z, .PickKakuna
-    cp 13 
+    cp 5  
     jr z, .PickBeedrill
-    cp 14 
+    cp 6  
     jr z, .PickPidgey
-    cp 15 
+    cp 7  
     jr z, .PickPidgeotto
-    cp 16 
+    cp 8  
     jr z, .PickPidgeot
-    cp 17 
+    cp 9  
     jr z, .PickRattata
-    cp 18 
+    cp 10 
     jr z, .PickRaticate
-    cp 19 
+    cp 11 
     jr z, .PickSpearow
-    cp 20 
+    cp 12 
     jr z, .PickFearow
-    cp 21 
+    cp 13 
     jr z, .PickEkans
-    cp 22 
+    cp 14 
     jr z, .PickArbok
-    cp 23 
+    cp 15 
     jr z, .PickPikachu
-    cp 24 
+    cp 16 
     jr z, .PickRaichu
-    cp 25 
+    cp 17 
     jr z, .PickSandshrew
-    cp 26 
+    cp 18 
     jr z, .PickSandslash
-    cp 27 
+    cp 19 
     jr z, .PickNidoranF
-    cp 39 
+    cp 20 
     jr z, .PickZubat
-    cp 40 
+    cp 21 
     jr z, .PickGolbat
-    cp 41 
+    cp 22 
     jr z, .PickOddish
-    cp 42 
+    cp 23 
     jr z, .PickGloom
-    cp 43 
+    cp 24 
     jr z, .PickVileplume
-    cp 44 
+    cp 25 
     jr z, .PickParas
-    cp 45 
+    cp 26 
     jr z, .PickParasect
-    cp 46 
+    cp 27 
     jr z, .PickVenonat
-    cp 47 
+    cp 28 
     jr z, .PickVenomoth
-    cp 48 
+    cp 29 
     jr z, .PickDiglett
-    cp 49 
+    cp 30 
     jr z, .PickDugtrio
-    cp 50 
+    cp 31 
     jr z, .PickMeowth
-    cp 0 
+    cp 32 
     jr z, .PickPersian
-    
-.PickBlastoise
-    ld b, 36
-    ld c, BLASTOISE
-    jr .SetPokemon
+    cp 33 
+    jr z, .PickFarfetchd
+    cp 34 
+    jr z, .PickDoduo
+    cp 35 
+    jr z, .PickDodrio
+    cp 36 
+    jr z, .PickSeel
+    cp 37 
+    jr z, .PickDewgong
+    cp 38 
+    jr z, .PickGrimer
+    cp 39 
+    jr z, .PickMuk
 
-.PickCaterpie
-    ld b, 7
-    ld c, CATERPIE
-    jr .SetPokemon
-
-.PickMetapod
-    ld b, 10
-    ld c, METAPOD
-    jr .SetPokemon
-
-.PickButterfree
-    ld b, 14
-    ld c, BUTTERFREE
-    jr .SetPokemon
-
-.PickWeedle
-    ld b, 7
-    ld c, WEEDLE
-    jr .SetPokemon
-
-.PickKakuna
-    ld b, 10
-    ld c, KAKUNA
-    jr .SetPokemon
-
-.PickBeedrill
-    ld b, 14
-    ld c, BEEDRILL
-    jr .SetPokemon
-
-.PickPidgey
-    ld b, 6
-    ld c, PIDGEY
-    jr .SetPokemon
-
-.PickPidgeotto
-    ld b, 16
-    ld c, PIDGEOTTO
-    jr .SetPokemon
-
-.PickPidgeot
-    ld b, 36
-    ld c, PIDGEOT
-    jr .SetPokemon
-
-.PickRattata
-    ld b, 6
-    ld c, RATTATA
-    jr .SetPokemon
-
-.PickRaticate
-    ld b, 20
-    ld c, RATICATE
-    jr .SetPokemon
-
-.PickSpearow
-    ld b, 6
-    ld c, SPEAROW
-    jr .SetPokemon
-
-.PickFearow
-    ld b, 20
-    ld c, FEAROW
-    jr .SetPokemon
-
-.PickEkans
-    ld b, 10
-    ld c, EKANS
-    jr .SetPokemon
-
-.PickArbok
-    ld b, 30
-    ld c, ARBOK
-    jr .SetPokemon
-
-.PickPikachu
-    ld b, 10
-    ld c, PIKACHU
-    jr .SetPokemon
-
-.PickRaichu
-    ld b, 30
-    ld c, RAICHU
-    jr .SetPokemon
-
-.PickSandshrew
-    ld b, 10
-    ld c, SANDSHREW
-    jr .SetPokemon
-
-.PickSandslash
-    ld b, 30
-    ld c, SANDSLASH
-    jr .SetPokemon
-
-.PickNidoranF
-    ld b, 10
-    ld c, NIDORAN_F
-    jr .SetPokemon
-
-.PickZubat
-    ld b, 10
-    ld c, ZUBAT
-    jr .SetPokemon
-
-.PickGolbat
-    ld b, 30
-    ld c, GOLBAT
-    jr .SetPokemon
-
-.PickOddish
-    ld b, 10
-    ld c, ODDISH
-    jr .SetPokemon
-
-.PickGloom
-    ld b, 20
-    ld c, GLOOM
-    jr .SetPokemon
-
-.PickVileplume
-    ld b, 30
-    ld c, VILEPLUME
-    jr .SetPokemon
-
-.PickParas
-    ld b, 8
-    ld c, PARAS
-    jr .SetPokemon
-
-.PickParasect
-    ld b, 38
-    ld c, PARASECT
-    jr .SetPokemon
-
-.PickVenonat
-    ld b, 38
-    ld c, VENONAT
-    jr .SetPokemon
-
-.PickVenomoth
-    ld b, 38
-    ld c, VENOMOTH
-    jr .SetPokemon
-
-.PickDiglett
-    ld b, 10
-    ld c, DIGLETT
-    jr .SetPokemon
-
-.PickDugtrio
-    ld b, 30
-    ld c, DUGTRIO
-    jr .SetPokemon
-
-.PickMeowth
-    ld b, 10
-    ld c, MEOWTH
-    jr .SetPokemon
-
-.PickPersian
-    ld b, 30
-    ld c, PERSIAN
-    jr .SetPokemon
-
-.PickFarfetchd
-    ld b, 20
-    ld c, FARFETCHD
-    jr .SetPokemon
-
-.PickDoduo
-    ld b, 10
-    ld c, DODUO
-    jr .SetPokemon
-
-.PickDodrio
-    ld b, 30
-    ld c, DODRIO
-    jr .SetPokemon
-
-.PickSeel
-    ld b, 10
-    ld c, SEEL
-    jr .SetPokemon
-
-.PickDewgong
-    ld b, 30
-    ld c, DEWGONG
-    jr .SetPokemon
-
-.PickGrimer
-    ld b, 10
-    ld c, GRIMER
-    jr .SetPokemon
-
-.PickMuk
-    ld b, 40
-    ld c, MUK
-    jr .SetPokemon
 
 .SetPokemon
     ld e, $1 ; Indicar que hay un mordisco
@@ -3143,105 +2940,106 @@ ReadSuperRodData:
 
 .ChoosePokemon
     call Random
-    and %0111111  ; Limitar a 0-127
-    cp 75
-    jr nc, .ChoosePokemon  ; Si el número es mayor a 74, repetir
-    add 76  ; Desplazar el rango a 76-150
+    and %00111111  ; Limitar el rango de 0 a 63 (para asegurar valores dentro de 0-46)
+    cp 47          ; Si el número generado es mayor a 46, repetir
+    jr nc, .ChoosePokemon
+
     
-cp 85
-jr z, .PickShellder
-cp 86
-jr z, .PickCloyster
-cp 87
-jr z, .PickGastly
-cp 88
-jr z, .PickHaunter
-cp 89
-jr z, .PickGengar
-cp 90
-jr z, .PickOnix
-cp 91
-jr z, .PickDrowzee
-cp 92
-jr z, .PickHypno
-cp 93
-jr z, .PickKrabby
-cp 94
-jr z, .PickKingler
-cp 95
-jr z, .PickVoltorb
-cp 96
-jr z, .PickElectrode
-cp 97
-jr z, .PickExeggcute
-cp 98
-jr z, .PickExeggutor
-cp 99
-jr z, .PickCubone
-cp 100
-jr z, .PickMarowak
-cp 101
-jr z, .PickHitmonlee
-cp 102
-jr z, .PickHitmonchan
-cp 103
-jr z, .PickLickitung
-cp 104
-jr z, .PickKoffing
-cp 105
-jr z, .PickWeezing
-cp 106
-jr z, .PickRhyhorn
-cp 107
-jr z, .PickRhydon
-cp 108
-jr z, .PickChansey
-cp 109
-jr z, .PickTangela
-cp 110
-jr z, .PickKangaskhan
-cp 111
-jr z, .PickHorsea
-cp 112
-jr z, .PickSeadra
-cp 113
-jr z, .PickGoldeen
-cp 114
-jr z, .PickSeaking
-cp 115
-jr z, .PickStaryu
-cp 116
-jr z, .PickStarmie
-cp 117
-jr z, .PickScyther
-cp 119
-jr z, .PickJynx
-cp 120
-jr z, .PickElectabuzz
-cp 121
-jr z, .PickMagmar
-cp 122
-jr z, .PickPinsir
-cp 123
-jr z, .PickTauros
-cp 124
-jr z, .PickMagikarp
-cp 125
-jr z, .PickGyarados
-cp 126
-jr z, .PickLapras
-cp 127
-jr z, .PickDitto
-cp 128
-jr z, .PickEevee
-cp 129
-jr z, .PickVaporeon
-cp 130
-jr z, .PickJolteon
-cp 131
-jr z, .PickFlareon
-cp 132
-jr z, .PickPorygon
+    cp 0
+    jr z, .PickShellder
+    cp 1
+    jr z, .PickCloyster
+    cp 2
+    jr z, .PickGastly
+    cp 3
+    jr z, .PickHaunter
+    cp 4
+    jr z, .PickGengar
+    cp 5
+    jr z, .PickOnix
+    cp 6
+    jr z, .PickDrowzee
+    cp 7
+    jr z, .PickHypno
+    cp 8
+    jr z, .PickKrabby
+    cp 9
+    jr z, .PickKingler
+    cp 10
+    jr z, .PickVoltorb
+    cp 11
+    jr z, .PickElectrode
+    cp 12
+    jr z, .PickExeggcute
+    cp 13
+    jr z, .PickExeggutor
+    cp 14
+    jr z, .PickCubone
+    cp 15
+    jr z, .PickMarowak
+    cp 16
+    jr z, .PickHitmonlee
+    cp 17
+    jr z, .PickHitmonchan
+    cp 18
+    jr z, .PickLickitung
+    cp 19
+    jr z, .PickKoffing
+    cp 20
+    jr z, .PickWeezing
+    cp 21
+    jr z, .PickRhyhorn
+    cp 22
+    jr z, .PickRhydon
+    cp 23
+    jr z, .PickChansey
+    cp 24
+    jr z, .PickTangela
+    cp 25
+    jr z, .PickKangaskhan
+    cp 26
+    jr z, .PickHorsea
+    cp 27
+    jr z, .PickSeadra
+    cp 28
+    jr z, .PickGoldeen
+    cp 29
+    jr z, .PickSeaking
+    cp 30
+    jr z, .PickStaryu
+    cp 31
+    jr z, .PickStarmie
+    cp 32
+    jr z, .PickScyther
+    cp 33
+    jr z, .PickJynx
+    cp 34
+    jr z, .PickElectabuzz
+    cp 35
+    jr z, .PickMagmar
+    cp 36
+    jr z, .PickPinsir
+    cp 37
+    jr z, .PickTauros
+    cp 38
+    jr z, .PickMagikarp
+    cp 39
+    jr z, .PickGyarados
+    cp 40
+    jr z, .PickLapras
+    cp 41
+    jr z, .PickDitto
+    cp 42
+    jr z, .PickEevee
+    cp 43
+    jr z, .PickVaporeon
+    cp 44
+    jr z, .PickJolteon
+    cp 45
+    jr z, .PickFlareon
+    cp 46
+    jr z, .PickPorygon
+
 
 .PickShellder
     ld b, 10
