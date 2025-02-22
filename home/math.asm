@@ -1,4 +1,5 @@
 EXPORT Modulus
+EXPORT DivideBy10
 ; function to do multiplication
 ; all values are big endian
 ; INPUT
