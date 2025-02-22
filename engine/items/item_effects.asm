@@ -3213,8 +3213,6 @@ jr z, .PickStaryu
 cp 116
 jr z, .PickStarmie
 cp 117
-jr z, .PickMrMime
-cp 118
 jr z, .PickScyther
 cp 119
 jr z, .PickJynx
@@ -3405,11 +3403,6 @@ jr z, .PickOmanyte
 .PickStarmie
     ld b, 26
     ld c, STARMIE
-    jr .SetPokemon
-
-.PickMrMime
-    ld b, 26
-    ld c, MR.MIME
     jr .SetPokemon
 
 .PickScyther
