@@ -1855,6 +1855,11 @@ ChooseGoodRodPokemon:
 
     jp SetPokemon  ; Saltar a la rutina de asignación del Pokémon
 
+.SetPokemon
+    ld e, $1  ; Indicar que hay un mordisco
+    ret
+
+
 GoodRodPokemonTable:
     db $01, $02, $03, $05, $07, $09, $0A, $0B, $0D, $0E, $0F  ; Lista de Pokémon válidos para Good Rod
     db $10, $11, $12, $14, $15, $16, $18, $19, $1A, $1B, $1C, $1D
