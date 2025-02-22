@@ -1928,87 +1928,205 @@ ChooseGoodRodPokemon:
     cp 39 
     jr z, .PickMuk
 
-    cp 0  
-    jr z, .PickCaterpie
-    cp 1  
-    jr z, .PickMetapod
-    cp 2  
-    jr z, .PickButterfree
-    cp 3  
-    jr z, .PickWeedle
-    cp 4  
-    jr z, .PickKakuna
-    cp 5  
-    jr z, .PickBeedrill
-    cp 6  
-    jr z, .PickPidgey
-    cp 7  
-    jr z, .PickPidgeotto
-    cp 8  
-    jr z, .PickPidgeot
-    cp 9  
-    jr z, .PickRattata
-    cp 10 
-    jr z, .PickRaticate
-    cp 11 
-    jr z, .PickSpearow
-    cp 12 
-    jr z, .PickFearow
-    cp 13 
-    jr z, .PickEkans
-    cp 14 
-    jr z, .PickArbok
-    cp 15 
-    jr z, .PickPikachu
-    cp 16 
-    jr z, .PickRaichu
-    cp 17 
-    jr z, .PickSandshrew
-    cp 18 
-    jr z, .PickSandslash
-    cp 19 
-    jr z, .PickNidoranF
-    cp 20 
-    jr z, .PickZubat
-    cp 21 
-    jr z, .PickGolbat
-    cp 22 
-    jr z, .PickOddish
-    cp 23 
-    jr z, .PickGloom
-    cp 24 
-    jr z, .PickVileplume
-    cp 25 
-    jr z, .PickParas
-    cp 26 
-    jr z, .PickParasect
-    cp 27 
-    jr z, .PickVenonat
-    cp 28 
-    jr z, .PickVenomoth
-    cp 29 
-    jr z, .PickDiglett
-    cp 30 
-    jr z, .PickDugtrio
-    cp 31 
-    jr z, .PickMeowth
-    cp 32 
-    jr z, .PickPersian
-    cp 33 
-    jr z, .PickFarfetchd
-    cp 34 
-    jr z, .PickDoduo
-    cp 35 
-    jr z, .PickDodrio
-    cp 36 
-    jr z, .PickSeel
-    cp 37 
-    jr z, .PickDewgong
-    cp 38 
-    jr z, .PickGrimer
-    cp 39 
-    jr z, .PickMuk
+.PickCaterpie
+    ld b, 7
+    ld c, CATERPIE
+    jr .SetPokemon
 
+.PickMetapod
+    ld b, 10
+    ld c, METAPOD
+    jr .SetPokemon
+
+.PickButterfree
+    ld b, 14
+    ld c, BUTTERFREE
+    jr .SetPokemon
+
+.PickWeedle
+    ld b, 7
+    ld c, WEEDLE
+    jr .SetPokemon
+
+.PickKakuna
+    ld b, 10
+    ld c, KAKUNA
+    jr .SetPokemon
+
+.PickBeedrill
+    ld b, 14
+    ld c, BEEDRILL
+    jr .SetPokemon
+
+.PickPidgey
+    ld b, 6
+    ld c, PIDGEY
+    jr .SetPokemon
+
+.PickPidgeotto
+    ld b, 16
+    ld c, PIDGEOTTO
+    jr .SetPokemon
+
+.PickPidgeot
+    ld b, 36
+    ld c, PIDGEOT
+    jr .SetPokemon
+
+.PickRattata
+    ld b, 6
+    ld c, RATTATA
+    jr .SetPokemon
+
+.PickRaticate
+    ld b, 20
+    ld c, RATICATE
+    jr .SetPokemon
+
+.PickSpearow
+    ld b, 6
+    ld c, SPEAROW
+    jr .SetPokemon
+
+.PickFearow
+    ld b, 20
+    ld c, FEAROW
+    jr .SetPokemon
+
+.PickEkans
+    ld b, 10
+    ld c, EKANS
+    jr .SetPokemon
+
+.PickArbok
+    ld b, 30
+    ld c, ARBOK
+    jr .SetPokemon
+
+.PickPikachu
+    ld b, 10
+    ld c, PIKACHU
+    jr .SetPokemon
+
+.PickRaichu
+    ld b, 30
+    ld c, RAICHU
+    jr .SetPokemon
+
+.PickSandshrew
+    ld b, 10
+    ld c, SANDSHREW
+    jr .SetPokemon
+
+.PickSandslash
+    ld b, 30
+    ld c, SANDSLASH
+    jr .SetPokemon
+
+.PickNidoranF
+    ld b, 10
+    ld c, NIDORAN_F
+    jr .SetPokemon
+
+.PickZubat
+    ld b, 10
+    ld c, ZUBAT
+    jr .SetPokemon
+
+.PickGolbat
+    ld b, 30
+    ld c, GOLBAT
+    jr .SetPokemon
+
+.PickOddish
+    ld b, 10
+    ld c, ODDISH
+    jr .SetPokemon
+
+.PickGloom
+    ld b, 20
+    ld c, GLOOM
+    jr .SetPokemon
+
+.PickVileplume
+    ld b, 30
+    ld c, VILEPLUME
+    jr .SetPokemon
+
+.PickParas
+    ld b, 8
+    ld c, PARAS
+    jr .SetPokemon
+
+.PickParasect
+    ld b, 38
+    ld c, PARASECT
+    jr .SetPokemon
+
+.PickVenonat
+    ld b, 38
+    ld c, VENONAT
+    jr .SetPokemon
+
+.PickVenomoth
+    ld b, 38
+    ld c, VENOMOTH
+    jr .SetPokemon
+
+.PickDiglett
+    ld b, 10
+    ld c, DIGLETT
+    jr .SetPokemon
+
+.PickDugtrio
+    ld b, 30
+    ld c, DUGTRIO
+    jr .SetPokemon
+
+.PickMeowth
+    ld b, 10
+    ld c, MEOWTH
+    jr .SetPokemon
+
+.PickPersian
+    ld b, 30
+    ld c, PERSIAN
+    jr .SetPokemon
+
+.PickFarfetchd
+    ld b, 20
+    ld c, FARFETCHD
+    jr .SetPokemon
+
+.PickDoduo
+    ld b, 10
+    ld c, DODUO
+    jr .SetPokemon
+
+.PickDodrio
+    ld b, 30
+    ld c, DODRIO
+    jr .SetPokemon
+
+.PickSeel
+    ld b, 10
+    ld c, SEEL
+    jr .SetPokemon
+
+.PickDewgong
+    ld b, 30
+    ld c, DEWGONG
+    jr .SetPokemon
+
+.PickGrimer
+    ld b, 10
+    ld c, GRIMER
+    jr .SetPokemon
+
+.PickMuk
+    ld b, 40
+    ld c, MUK
+    jr .SetPokemon
 
 .SetPokemon
     ld e, $1 ; Indicar que hay un mordisco
