@@ -45,3 +45,10 @@ Modulus:
     add b     ; Revertimos la última resta que fue demasiado
     ld a, l   ; El residuo queda en 'a'
     ret
+
+; Divide el valor en A por 10 y devuelve el cociente en A
+DivideBy10:
+    ld c, 10         ; Cargamos el divisor (10)
+    call Divide      ; Llamamos a la función de división del juego
+    ld a, l          ; Guardamos el cociente (resultado de A / 10)
+    ret
