@@ -71,11 +71,5 @@ InitPlayerBag:
     inc hl
 
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
-
-    ld a, MAGIKARP  ; ID de Magikarp
-    ld b, 5         ; Nivel 5
-    call GivePokemon  ; Entregar Magikarp correctamente
-    call InitializePartyMonData  ; Asegurar que se inicializan bien sus datos
-
     ret
 
