@@ -1824,36 +1824,94 @@ CoinCaseNumCoinsText:
 	text_end
 
 ItemUseOldRod:
-	call FishingInit
-	jp c, ItemUseNotTime
-	lb bc, 5, MAGIKARP
-	ld a, $1 ; set bite
-	jp RodResponse
+    call FishingInit
+    jp c, ItemUseNotTime  ; Si no es momento de pescar, salir
+
+    call Random
+    srl a                 ; 50% de probabilidad de picar
+    jr c, .NoBite         ; Si no pica, ir a .NoBite
+
+.ChoosePokemon:
+    call Random
+    and %00111111         ; Generamos un número entre 0 y 63 (64 valores)
+    
+    ld hl, OldRodPokemonTable  
+    ld d, 0
+    ld e, a
+    add hl, de
+    ld a, [hl]            ; Obtener el ID del Pokémon
+    ld c, a               ; Guardamos el ID del Pokémon
+
+.ChooseRandomLevel:
+    call Random
+    and %00001111         ; Genera un número entre 0 y 15
+    add 5                 ; Ajustar para que esté entre 5 y 20
+    ld b, a               ; Guardar el nivel en B
+
+.SetPokemon:
+    ld a, $1              ; Indicar que hay un mordisco
+    jp RodResponse        ; Saltar a la respuesta de pesca
+
+.NoBite:
+    ld e, $0              ; Indicar que NO hay mordisco
+    jp RodResponse        ; Volver a la función original
+
+OldRodPokemonTable:
+    db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
+    db $11, $12, $13, $16, $17, $18, $19, $1A, $1B, $1C, $1E
+    db $22, $23, $24, $26, $27, $29, $2D, $2E, $2F, $30, $31
+    db $34, $35, $36, $37, $38, $3B, $3C, $3E, $40, $41, $42
+    db $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $52, $53
+    db $55, $58, $59, $5A, $5B, $5C, $5D, $5E, $60, $61, $62
+
 ItemUseGoodRod:
-	call FishingInit
-	jp c, ItemUseNotTime
-.RandomLoop
-	call Random
-	srl a
-	jr c, .SetBite
-	and %11
-	cp 2
-	jr nc, .RandomLoop
-	; choose which monster appears
-	ld hl, GoodRodMons
-	add a
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld b, [hl]
-	inc hl
-	ld c, [hl]
-	and a
-.SetBite
-	ld a, 0
-	rla
-	xor 1
-	jr RodResponse
+    call FishingInit
+    jp c, .NoBite ; Si no se puede pescar, no hay picada.
+
+    call Random
+    srl a ; 50% de probabilidad de picar
+    jr c, .NoBite
+
+.ChoosePokemon:
+    call Random
+    and %01011111  ; Generamos un número entre 0 y 89 (90 valores)
+    
+    ld hl, GoodRodPokemonTable  
+    ld d, 0
+    ld e, a
+    add hl, de
+    ld a, [hl]  ; Obtener el ID del Pokémon
+    ld c, a     ; Guardamos el ID del Pokémon
+
+.ChooseRandomLevel:
+    call Random
+    and %00011111  ; Genera un número entre 0 y 31
+    add 5          ; Ajustar para que esté entre 5 y 36
+    cp 31          ; Si es mayor que 30, fijar en 30
+    jr c, .LevelOK
+    ld a, 30
+.LevelOK
+    ld b, a        ; Guardar el nivel en B
+
+.SetPokemon:
+    ld e, $1       ; Indicar que hay un mordisco
+    ret
+
+.NoBite:
+    ld e, $0       ; Indicar que NO hay mordisco
+    ret
+
+
+GoodRodPokemonTable:
+    db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
+    db $11, $12, $13, $16, $17, $18, $19, $1A, $1B, $1C, $1E
+    db $22, $23, $24, $26, $27, $29, $2D, $2E, $2F, $30, $31
+    db $34, $35, $36, $37, $38, $3B, $3C, $3E, $40, $41, $42
+    db $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $52, $53
+    db $55, $58, $59, $5A, $5B, $5C, $5D, $5E, $60, $61, $62
+    db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
+    db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
+    db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
 INCLUDE "data/wild/good_rod.asm"
 
