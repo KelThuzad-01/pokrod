@@ -2847,12 +2847,18 @@ ReadSuperRodData:
     call IsInArray
     jr c, .ReadFishingGroup  ; Si hay un grupo de pesca, proceder
 
-    ld e, $2  ; $2 si no hay Pokémon en esta área
-    ret
+    ; ⚠️ Si no hay datos en esta área, permitimos pescar igual usando la tabla general
+    jr .ChoosePokemon  ; En lugar de salir, pasamos a elegir un Pokémon
 
 .ReadFishingGroup:
     ; Cargar datos de Pokémon salvajes
     call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
+
+.ChooseBiteChance:
+    call Random
+    and %00000011  ; Generar un número entre 0 y 3 (25% de probabilidad)
+    cp 0
+    jr nz, .NoBite  ; Si no es 0, el Pokémon no pica
 
 .ChoosePokemon:
     call Random
@@ -2893,6 +2899,7 @@ SuperRodPokemonTable:
     db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
     db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
+
 
 INCLUDE "data/wild/super_rod.asm"
 
