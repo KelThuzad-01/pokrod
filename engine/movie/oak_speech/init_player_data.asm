@@ -21,6 +21,11 @@ InitPlayerData2:
 	call InitPlayerBag ; Call new function bag to give items
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
+  	
+        ; Dar Magikarp nivel 5
+        ld a, MAGIKARP ; ID del Pokémon
+        ld b, 5 ; Nivel 5
+        call GivePokemon
 
 DEF START_MONEY EQU $5
 	ld hl, wPlayerMoney + 1
@@ -60,7 +65,7 @@ InitPlayerBag:
     ld [hl], 2            ; Número de objetos iniciales (ajústalo si agregas más)
 
     ld hl, wBagItems
-    ld [hl], OLD_ROD      ; Primer objeto: super
+    ld [hl], OLD_ROD      ; Primer objeto
     inc hl
     ld [hl], 1            ; Cantidad: 1
     inc hl
