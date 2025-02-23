@@ -73,7 +73,14 @@ InitPlayerBag:
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
 
 
-    ld a, $85  ; ID de Magikarp en hexadecimal
-    ld b, 5    ; Nivel 5
-    call GivePokemon
+     ; Agregar Magikarp al equipo
+    ld hl, wPartyMon1Species  ; Dirección de la lista de especies en el equipo
+    add hl, a                 ; Moverse al último espacio disponible
+    ld [hl], $85              ; Magikarp (ID hexadecimal)
+
+    ; Establecer nivel
+    ld hl, wPartyMon1Level
+    add hl, a
+    ld [hl], 5                ; Nivel 5
+
     ret
