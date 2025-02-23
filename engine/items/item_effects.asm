@@ -2882,15 +2882,16 @@ ReadSuperRodData:
 
 ; Obtener el nivel del Pokémon salvaje de la zona actual
 GetWildLevel:
-    ld hl, WildPokemonData ; Puntero a los datos de Pokémon salvajes
-    ld a, [wCurMap]        ; Obtener el mapa actual
-    call IsInArray         ; Verificar si el mapa tiene datos de Pokémon salvajes
-    jr c, .FoundWildLevel  ; Si hay datos, usarlos
-    ld a, 5               ; Si no hay datos, usar nivel 5 por defecto
+    ld a, [wCurMap]       ; Obtener el mapa actual
+    ld hl, WildPokemonTable ; Apuntar a los datos de Pokémon salvajes
+    call IsInArray        ; Verificar si hay datos en la tabla
+    jr c, .FoundWildLevel ; Si hay datos, usarlos
+
+    ld a, 5              ; Si no hay datos, usar nivel 5 por defecto
     ret
 
-.FoundWildLevel
-    ld a, [hl]            ; Obtener el nivel del primer Pokémon salvaje en la zona
+.FoundWildLevel:
+    ld a, [hl]           ; Obtener el nivel del primer Pokémon salvaje en la zona
     ret
 
 SuperRodPokemonTable:
@@ -2905,6 +2906,7 @@ SuperRodPokemonTable:
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
 INCLUDE "data/wild/super_rod.asm"
+
 
 
 ; reloads map view and processes sprite data
