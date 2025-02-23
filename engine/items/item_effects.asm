@@ -2848,7 +2848,7 @@ ReadSuperRodData:
     jr c, .ReadFishingGroup  ; Si hay un grupo de pesca, proceder
 
     ; ⚠️ Si no hay datos en esta área, permitimos pescar igual usando la tabla general
-    jr .ChoosePokemon  ; En lugar de salir, pasamos a elegir un Pokémon
+    jr .ChooseBiteChance
 
 .ReadFishingGroup:
     ; Cargar datos de Pokémon salvajes
@@ -2856,9 +2856,8 @@ ReadSuperRodData:
 
 .ChooseBiteChance:
     call Random
-    and %00000011  ; Generar un número entre 0 y 3 (25% de probabilidad)
-    cp 0
-    jr nz, .NoBite  ; Si no es 0, el Pokémon no pica
+    srl a   ; 50% de probabilidad de picar (divide el número aleatorio entre 2)
+    jr c, .NoBite  ; Si el bit de acarreo no está activado, no hay mordisco
 
 .ChoosePokemon:
     call Random
@@ -2875,31 +2874,19 @@ ReadSuperRodData:
     ld c, a            ; Guardarlo en C
 
 .ChooseRandomLevel:
-    ; Generar un nivel aleatorio entre 30 y 40
+    ; Generar un nivel aleatorio entre 5 y 40
     call Random
-    and %00001111      ; Genera un número entre 0 y 15
-    add 30             ; Ajustar para que esté entre 30 y 40
+    and %00011111      ; Genera un número entre 0 y 31
+    add 5             ; Ajustar para que esté entre 5 y 40
     ld b, a            ; Guardar el nivel en B
 
 .SetPokemon:
     ld e, $1           ; Indicar que hay un mordisco
-    jp RodResponse     ; Saltar a la respuesta de pesca
+    jp RodResponse     ; Llamar a la rutina de combate tras la animación de "bite"
 
 .NoBite:
     ld e, $0           ; Indicar que NO hay mordisco
-    ret                ; Salir sin generar Pokémon
-
-SuperRodPokemonTable:
-    db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
-    db $11, $12, $13, $16, $17, $18, $19, $1A, $1B, $1C, $1E
-    db $22, $23, $24, $26, $27, $29, $2D, $2E, $2F, $30, $31
-    db $34, $35, $36, $37, $38, $3B, $3C, $3E, $40, $41, $42
-    db $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $52, $53
-    db $55, $58, $59, $5A, $5B, $5C, $5D, $5E, $60, $61, $62
-    db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
-    db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
-    db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
-
+    jp RodResponse     ; Llamar a la rutina de "falló el anzuelo"
 
 INCLUDE "data/wild/super_rod.asm"
 
