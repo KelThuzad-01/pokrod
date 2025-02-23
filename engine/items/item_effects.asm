@@ -1834,13 +1834,13 @@ ItemUseOldRod:
 .ChoosePokemon:
     call Random
     and %00111111         ; Generamos un número entre 0 y 63 (64 valores)
-    
+
     ld hl, OldRodPokemonTable  
     ld d, 0
     ld e, a
     add hl, de
     ld a, [hl]            ; Obtener el ID del Pokémon
-    ld c, a               ; Guardamos el ID del Pokémon
+    ld c, a               ; Guardamos el ID del Pokémon en C
 
 .ChooseRandomLevel:
     call Random
@@ -1849,16 +1849,20 @@ ItemUseOldRod:
     ld b, a               ; Guardar el nivel en B
 
 .SetPokemon:
-    ld e, $1              ; Indicar que hay un mordisco
-    ld [wRodResponse], e  ; Guardar la respuesta de la caña
-    ld [wCurEnemyLevel], b ; Guardar nivel
-    ld [wCurOpponent], c  ; Guardar especie
+    ld a, $1              ; Indicar que hay un mordisco
+    ld [wRodResponse], a  ; Guardar la respuesta de la caña
+
+    ld a, b               ; Cargar el nivel
+    ld [wCurEnemyLevel], a ; Guardarlo en memoria
+
+    ld a, c               ; Cargar la especie del Pokémon
+    ld [wCurOpponent], a  ; Guardarlo en memoria
+
     jp RodResponse        ; Saltar a la respuesta de pesca
 
 .NoBite:
     xor a                 ; Asegurar que e = 0 si no hay picada
-    ld e, a
-    ld [wRodResponse], e  ; Guardar que NO hubo mordida
+    ld [wRodResponse], a  ; Guardar que NO hubo mordida
     jp RodResponse        ; Volver a la función original
 
 OldRodPokemonTable:
