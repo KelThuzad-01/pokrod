@@ -74,6 +74,8 @@ InitPlayerBag:
 
     ld a, MAGIKARP  ; ID de Magikarp
     ld b, 5         ; Nivel 5
-    call GiveStarterMon  ; Usa la misma rutina que entrega el inicial
+    call GivePokemon  ; Entregar Magikarp correctamente
+    call InitializePartyMonData  ; Asegurar que se inicializan bien sus datos
+
     ret
 
