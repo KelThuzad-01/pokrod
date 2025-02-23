@@ -75,14 +75,14 @@ InitPlayerBag:
 
          ld a, [wPartyCount]   ; Cargar el número de Pokémon en el equipo
     cp 6                  ; ¿El equipo está lleno?
-    jp nc, .ToBox         ; Si está lleno, enviar a la caja
+    jp nc, .ToBox         ; Si está lleno, enviarlo a la caja
 
     ; Obtener la posición del siguiente Pokémon en el equipo
     ld hl, wPartySpecies  ; Dirección base de la lista de especies en el equipo
     ld b, 0
     ld c, a
     add hl, bc            ; Moverse a la última posición disponible
-    ld [hl], $85          ; ID de Magikarp en la Pokedex
+    ld [hl], MAGIKARP     ; ID de Magikarp
 
     ; Establecer nivel
     ld hl, wPartyMon1Level
@@ -90,6 +90,9 @@ InitPlayerBag:
     ld c, a
     add hl, bc
     ld [hl], 5            ; Nivel 5
+
+    ; Inicializar HP y estadísticas base
+    call InitializeNewPokemonStats
 
     ; Aumentar el contador de Pokémon en el equipo
     ld hl, wPartyCount
@@ -100,5 +103,40 @@ InitPlayerBag:
     ; Si el equipo está lleno, en esta versión simplemente lo ignoramos por ahora
     ret
 
+; --------------------------------------
+; Inicializa los datos del Pokémon
+; --------------------------------------
+InitializeNewPokemonStats:
+    ; Asumimos que el Pokémon es el último en wPartyMon1
+    ld hl, wPartyMon1HP
+    xor a
+    ld [hl], a
+    inc hl
+    ld [hl], a
 
+    ; Inicializar EVs e IVs
+    ld hl, wPartyMon1EVs
+    ld bc, 10
+    call FillMemoryWithZero
+
+    ; Inicializar Ataques (usar ataques predeterminados de Magikarp)
+    ld hl, wPartyMon1Moves
+    ld [hl], SPLASH  ; Magikarp solo conoce Salpicadura al inicio
+    inc hl
+    ld [hl], $FF     ; Termina la lista de movimientos
+
+    ret
+
+; --------------------------------------
+; Llena un área de memoria con ceros
+; --------------------------------------
+FillMemoryWithZero:
+    xor a
+.loop
+    ld [hl], a
+    inc hl
+    dec bc
+    ld a, b
+    or c
+    jr nz, .loop
     ret
