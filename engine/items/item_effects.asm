@@ -93,7 +93,6 @@ ItemUsePtrTable:
 	dw UnusableItem      ; LIFT_KEY
 	dw UnusableItem      ; EXP_ALL
 	dw ItemUseOldRod     ; OLD_ROD
-	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
 	dw ItemUsePPUp       ; PP_UP
 	dw ItemUsePPRestore  ; ETHER
