@@ -71,9 +71,7 @@ InitPlayerBag:
     inc hl
 
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
-
-
-         ld a, [wPartyCount]   ; Cargar el número de Pokémon en el equipo
+        ld a, [wPartyCount]   ; Cargar el número de Pokémon en el equipo
     cp 6                  ; ¿El equipo está lleno?
     jp nc, .ToBox         ; Si está lleno, enviarlo a la caja
 
@@ -104,18 +102,17 @@ InitPlayerBag:
     ret
 
 ; --------------------------------------
-; Inicializa los datos del Pokémon
+; Inicializa los datos del Pokémon correctamente
 ; --------------------------------------
 InitializeNewPokemonStats:
-    ; Asumimos que el Pokémon es el último en wPartyMon1
     ld hl, wPartyMon1HP
     xor a
     ld [hl], a
     inc hl
     ld [hl], a
 
-    ; Inicializar EVs e IVs
-    ld hl, wPartyMon1EVs
+    ; Inicializar HP y estadísticas completas
+    ld hl, wPartyMon1Stats
     ld bc, 10
     call FillMemoryWithZero
 
