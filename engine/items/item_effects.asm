@@ -2851,15 +2851,14 @@ ReadSuperRodData:
     ret
 
 .ReadFishingGroup:
-    ; Verificar si hay un grupo de pesca válido
-    ld a, [wCurMap]
-    ld de, 3
-    ld hl, SuperRodData
-    call IsInArray
-    jr c, .ChoosePokemon  ; Si hay Pokémon, proceder con la selección
+    ; Cargar datos de Pokémon salvajes
+    call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
+    ld a, [wWaterRate] ; Leer tasa de encuentro en agua
 
-    ld e, $2  ; Si no hay Pokémon en esta área
-    ret
+    and a              ; Comprobar si hay encuentros en agua
+    jr nz, .ChoosePokemon
+    ld b, 5            ; Si no hay encuentros en agua, asignar nivel 5 por defecto
+    jr .ChoosePokemonWithLevel
 
 .ChoosePokemon:
     call Random
@@ -2873,26 +2872,19 @@ ReadSuperRodData:
     ld a, [hl]  ; Obtener el ID del Pokémon
     ld c, a  ; Guardarlo en C
 
-    call GetWildLevel  ; Obtener el nivel adecuado
-    ld b, a  ; Guardarlo en B
+.ChoosePokemonWithLevel:
+    ; Obtener nivel del Pokémon según la tabla de encuentros en agua
+    ld hl, wWaterMons  ; Tabla de Pokémon salvajes en agua
+    ld a, [hl]         ; Leer nivel del primer Pokémon
+    and a
+    jr nz, .SetPokemon ; Si el nivel es válido, continuar
+    ld a, 5            ; Si no hay datos, usar nivel 5
 
+.SetPokemon:
+    ld b, a  ; Guardar el nivel en B
     ld a, $1  ; Indicar que hay un mordisco
     ld e, a  ; Guardarlo en E
     jp RodResponse  ; Saltar a la respuesta de pesca
-
-; Obtener el nivel del Pokémon salvaje de la zona actual
-GetWildLevel:
-    ld a, [wCurMap]       ; Obtener el mapa actual
-    ld hl, WildPokemonTable ; Apuntar a los datos de Pokémon salvajes
-    call IsInArray        ; Verificar si hay datos en la tabla
-    jr c, .FoundWildLevel ; Si hay datos, usarlos
-
-    ld a, 5              ; Si no hay datos, usar nivel 5 por defecto
-    ret
-
-.FoundWildLevel:
-    ld a, [hl]           ; Obtener el nivel del primer Pokémon salvaje en la zona
-    ret
 
 SuperRodPokemonTable:
     db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
