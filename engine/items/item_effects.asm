@@ -2854,6 +2854,12 @@ ReadSuperRodData:
     ; Cargar datos de Pokémon salvajes
     call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
 
+.ChooseBiteChance:
+    call Random
+    and %00000011  ; Generar un número entre 0 y 3 (25% de probabilidad)
+    cp 0
+    jr nz, .NoBite  ; Si no es 0, el Pokémon no pica
+
 .ChoosePokemon:
     call Random
     and %0111111       ; Generamos un número entre 0 y 127
@@ -2876,9 +2882,12 @@ ReadSuperRodData:
     ld b, a            ; Guardar el nivel en B
 
 .SetPokemon:
-    ld a, $1           ; Indicar que hay un mordisco
-    ld e, a            ; Guardarlo en E
+    ld e, $1           ; Indicar que hay un mordisco
     jp RodResponse     ; Saltar a la respuesta de pesca
+
+.NoBite:
+    ld e, $0           ; Indicar que NO hay mordisco
+    ret                ; Salir sin generar Pokémon
 
 SuperRodPokemonTable:
     db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
