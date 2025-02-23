@@ -73,14 +73,32 @@ InitPlayerBag:
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
 
 
-     ; Agregar Magikarp al equipo
-    ld hl, wPartyMon1Species  ; Dirección de la lista de especies en el equipo
-    add hl, a                 ; Moverse al último espacio disponible
-    ld [hl], $85              ; Magikarp (ID hexadecimal)
+         ld a, [wPartyCount]   ; Cargar el número de Pokémon en el equipo
+    cp 6                  ; ¿El equipo está lleno?
+    jp nc, .ToBox         ; Si está lleno, enviar a la caja
+
+    ; Obtener la posición del siguiente Pokémon en el equipo
+    ld hl, wPartySpecies  ; Dirección base de la lista de especies en el equipo
+    ld b, 0
+    ld c, a
+    add hl, bc            ; Moverse a la última posición disponible
+    ld [hl], $85          ; ID de Magikarp en la Pokedex
 
     ; Establecer nivel
     ld hl, wPartyMon1Level
-    add hl, a
-    ld [hl], 5                ; Nivel 5
+    ld b, 0
+    ld c, a
+    add hl, bc
+    ld [hl], 5            ; Nivel 5
+
+    ; Aumentar el contador de Pokémon en el equipo
+    ld hl, wPartyCount
+    inc [hl]
+    ret
+
+.ToBox:
+    ; Si el equipo está lleno, en esta versión simplemente lo ignoramos por ahora
+    ret
+
 
     ret
