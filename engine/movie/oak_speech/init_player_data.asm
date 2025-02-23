@@ -73,7 +73,7 @@ InitPlayerBag:
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
 
 
-    ld a, MAGIKARP ; ID del Pokémon
-    ld b, 5 ; Nivel 5
+    ld a, $85  ; ID de Magikarp en hexadecimal
+    ld b, 5    ; Nivel 5
     call GivePokemon
     ret
