@@ -2854,12 +2854,6 @@ ReadSuperRodData:
     ; Cargar datos de Pokémon salvajes
     call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
 
-.ChooseBiteChance:
-    call Random
-    and %00000011  ; Generar un número entre 0 y 3 (25% de probabilidad)
-    cp 0
-    jr nz, .NoBite  ; Si no es 0, el Pokémon no pica
-
 .ChoosePokemon:
     call Random
     and %0111111       ; Generamos un número entre 0 y 127
