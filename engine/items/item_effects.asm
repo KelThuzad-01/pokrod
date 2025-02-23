@@ -2840,53 +2840,42 @@ IsNextTileShoreOrWater:
 INCLUDE "data/tilesets/water_tilesets.asm"
 
 ReadSuperRodData:
-    ; Verificar si hay Pokémon disponibles en el mapa actual
-    ld a, [wCurMap]
-    ld de, 3  ; Cada grupo de pesca tiene 3 bytes
-    ld hl, SuperRodData
-    call IsInArray
-    jr c, .ReadFishingGroup  ; Si hay un grupo de pesca, proceder
+    call FishingInit
+    jp c, .NoBite ; Si no se puede pescar, no hay picada.
 
-    ; ⚠️ Si no hay datos en esta área, permitimos pescar igual usando la tabla general
-    jr .ChooseBiteChance
-
-.ReadFishingGroup:
-    ; Cargar datos de Pokémon salvajes
-    call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
-
-.ChooseBiteChance:
     call Random
-    srl a   ; 50% de probabilidad de picar (divide el número aleatorio entre 2)
-    jr c, .NoBite  ; Si el bit de acarreo no está activado, no hay mordisco
+    srl a ; 50% de probabilidad de picar
+    jr c, .NoBite
 
 .ChoosePokemon:
     call Random
-    and %0111111       ; Generamos un número entre 0 y 127
-    cp 90
-    jr nc, .ChoosePokemon  ; Si el número es mayor o igual a 90, repetir
-
-    ; Usar el número aleatorio como índice en la tabla de Pokémon válidos
+    and %01011111  ; Generamos un número entre 0 y 89 (90 valores)
+    
     ld hl, SuperRodPokemonTable  
     ld d, 0
-    ld e, a            ; Guardamos el índice en DE
-    add hl, de         ; hl apunta al Pokémon correspondiente
-    ld a, [hl]         ; Obtener el ID del Pokémon
-    ld c, a            ; Guardarlo en C
+    ld e, a
+    add hl, de
+    ld a, [hl]  ; Obtener el ID del Pokémon
+    ld c, a     ; Guardamos el ID del Pokémon
 
 .ChooseRandomLevel:
-    ; Generar un nivel aleatorio entre 5 y 40
     call Random
-    and %00011111      ; Genera un número entre 0 y 31
-    add 5             ; Ajustar para que esté entre 5 y 40
-    ld b, a            ; Guardar el nivel en B
+    and %00011111  ; Genera un número entre 0 y 31
+    add 5          ; Ajustar para que esté entre 5 y 36
+    cp 41          ; Si es mayor que 40, fijar en 40
+    jr c, .LevelOK
+    ld a, 40
+.LevelOK
+    ld b, a        ; Guardar el nivel en B
 
 .SetPokemon:
-    ld e, $1           ; Indicar que hay un mordisco
-    jp RodResponse     ; Llamar a la rutina de combate tras la animación de "bite"
+    ld e, $1       ; Indicar que hay un mordisco
+    ret
 
 .NoBite:
-    ld e, $0           ; Indicar que NO hay mordisco
-    jp RodResponse     ; Llamar a la rutina de "falló el anzuelo"
+    ld e, $0       ; Indicar que NO hay mordisco
+    ret
+
 
 SuperRodPokemonTable:
     db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
@@ -2900,6 +2889,7 @@ SuperRodPokemonTable:
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
 INCLUDE "data/wild/super_rod.asm"
+
 
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
