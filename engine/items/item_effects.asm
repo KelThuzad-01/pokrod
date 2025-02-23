@@ -1849,11 +1849,16 @@ ItemUseOldRod:
     ld b, a               ; Guardar el nivel en B
 
 .SetPokemon:
-    ld a, $1              ; Indicar que hay un mordisco
+    ld e, $1              ; Indicar que hay un mordisco
+    ld [wRodResponse], e  ; Guardar la respuesta de la caña
+    ld [wCurEnemyLevel], b ; Guardar nivel
+    ld [wCurOpponent], c  ; Guardar especie
     jp RodResponse        ; Saltar a la respuesta de pesca
 
 .NoBite:
-    ld e, $0              ; Indicar que NO hay mordisco
+    xor a                 ; Asegurar que e = 0 si no hay picada
+    ld e, a
+    ld [wRodResponse], e  ; Guardar que NO hubo mordida
     jp RodResponse        ; Volver a la función original
 
 OldRodPokemonTable:
