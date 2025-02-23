@@ -2891,6 +2891,8 @@ SuperRodPokemonTable:
     db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
+INCLUDE "data/wild/super_rod.asm"
+
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
 ItemUseReloadOverworldData:
