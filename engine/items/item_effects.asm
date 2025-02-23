@@ -1828,47 +1828,7 @@ ItemUseOldRod:
 	jp c, ItemUseNotTime
 	lb bc, 5, MAGIKARP
 	ld a, $1 ; set bite
-	jr RodResponse
-
-ItemUseGoodRod:
-	call FishingInit
-	jp c, ItemUseNotTime  ; Si no es momento de pescar, salir
-
-	call Random
-	srl a
-	ret c  ; 50% de probabilidad de que no pique
-
-	call ChooseGoodRodPokemon  ; Elegimos el Pokémon si picó
-	jr RodResponse
-
-ChooseGoodRodPokemon:
-    call Random
-    and %0111111  ; Generar un número entre 0 y 127 (ajustable)
-    cp 50
-    jr nc, .ChoosePokemon  ; Si el número es mayor o igual a 90, repetir
-
-    ld hl, GoodRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos para la Good Rod
-    add l
-    ld l, a
-    ld a, [hl]  ; Obtener el valor hexadecimal del Pokémon
-    ld c, a  ; Guardarlo en C para la lógica del juego
-
-    jp SetPokemon  ; Saltar a la rutina de asignación del Pokémon
-
-.SetPokemon
-    ld e, $1  ; Indicar que hay un mordisco
-    ret
-
-
-GoodRodPokemonTable:
-    db $01, $02, $03, $05, $07, $09, $0A, $0B, $0D, $0E, $0F  ; Lista de Pokémon válidos para Good Rod
-    db $10, $11, $12, $14, $15, $16, $18, $19, $1A, $1B, $1C, $1D
-    db $21, $22, $23, $25, $26, $27, $28, $29, $2A, $2B, $2C, $2E
-    db $30, $31, $34, $35, $36, $37, $38, $3A, $3B, $3C, $3D, $3E
-    db $40, $41, $42, $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D
-    db $52, $53, $54, $55, $58, $59, $5A, $5B, $5C, $5D, $60, $61
-    db $62, $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
-    db $70, $71, $72, $74, $75, $76, $77, $78, $7B, $7C, $7D, $80
+	jp RodResponse
 
 ItemUseSuperRod:
 	call FishingInit
