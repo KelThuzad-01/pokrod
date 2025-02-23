@@ -2888,6 +2888,17 @@ ReadSuperRodData:
     ld e, $0           ; Indicar que NO hay mordisco
     jp RodResponse     ; Llamar a la rutina de "falló el anzuelo"
 
+SuperRodPokemonTable:
+    db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
+    db $11, $12, $13, $16, $17, $18, $19, $1A, $1B, $1C, $1E
+    db $22, $23, $24, $26, $27, $29, $2D, $2E, $2F, $30, $31
+    db $34, $35, $36, $37, $38, $3B, $3C, $3E, $40, $41, $42
+    db $43, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $52, $53
+    db $55, $58, $59, $5A, $5B, $5C, $5D, $5E, $60, $61, $62
+    db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
+    db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
+    db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
+
 INCLUDE "data/wild/super_rod.asm"
 
 ; reloads map view and processes sprite data
