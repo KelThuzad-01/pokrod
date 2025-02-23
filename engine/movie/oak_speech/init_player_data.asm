@@ -60,7 +60,7 @@ InitPlayerBag:
     ld [hl], 2            ; Número de objetos iniciales (ajústalo si agregas más)
 
     ld hl, wBagItems
-    ld [hl], SUPER_ROD      ; Primer objeto: super
+    ld [hl], OLD_ROD      ; Primer objeto: super
     inc hl
     ld [hl], 1            ; Cantidad: 1
     inc hl
