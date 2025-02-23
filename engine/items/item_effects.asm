@@ -2862,29 +2862,38 @@ ReadSuperRodData:
 
 .ChoosePokemon:
     call Random
-    and %0111111  ; Generamos un número entre 0 y 127
+    and %0111111       ; Generamos un número entre 0 y 127
     cp 90
     jr nc, .ChoosePokemon  ; Si el número es mayor o igual a 90, repetir
 
-    ld hl, SuperRodPokemonTable  ; Cargar la dirección de la tabla con Pokémon válidos
-    add l
-    ld l, a
-    ld a, [hl]  ; Obtener el ID del Pokémon
-    ld c, a  ; Guardarlo en C
+    ; Usar el número aleatorio como índice en la tabla de Pokémon válidos
+    ld hl, SuperRodPokemonTable  
+    ld d, 0
+    ld e, a            ; Guardamos el índice en DE
+    add hl, de         ; hl apunta al Pokémon correspondiente
+    ld a, [hl]         ; Obtener el ID del Pokémon
+    ld c, a            ; Guardarlo en C
 
 .ChoosePokemonWithLevel:
-    ; Obtener nivel del Pokémon según la tabla de encuentros en agua
+    ; Elegir aleatoriamente un Pokémon de los datos de agua
     ld hl, wWaterMons  ; Tabla de Pokémon salvajes en agua
-    ld a, [hl]         ; Leer nivel del primer Pokémon
+
+    ; Obtener un índice aleatorio dentro de los datos de agua
+    call Random
+    and %00000110      ; Generamos valores 0, 2, 4, 6 (porque cada entrada tiene 2 bytes: nivel y especie)
+    ld e, a
+    ld d, 0
+    add hl, de         ; Posicionar HL en un Pokémon de la tabla
+    ld a, [hl]         ; Obtener el nivel del Pokémon
     and a
     jr nz, .SetPokemon ; Si el nivel es válido, continuar
     ld a, 5            ; Si no hay datos, usar nivel 5
 
 .SetPokemon:
-    ld b, a  ; Guardar el nivel en B
-    ld a, $1  ; Indicar que hay un mordisco
-    ld e, a  ; Guardarlo en E
-    jp RodResponse  ; Saltar a la respuesta de pesca
+    ld b, a            ; Guardar el nivel en B
+    ld a, $1           ; Indicar que hay un mordisco
+    ld e, a            ; Guardarlo en E
+    jp RodResponse     ; Saltar a la respuesta de pesca
 
 SuperRodPokemonTable:
     db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
@@ -2898,8 +2907,6 @@ SuperRodPokemonTable:
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
 INCLUDE "data/wild/super_rod.asm"
-
-
 
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
