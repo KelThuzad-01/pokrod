@@ -2853,12 +2853,6 @@ ReadSuperRodData:
 .ReadFishingGroup:
     ; Cargar datos de Pokémon salvajes
     call LoadWildData  ; Obtiene la dirección de los datos de encuentros salvajes
-    ld a, [wWaterRate] ; Leer tasa de encuentro en agua
-
-    and a              ; Comprobar si hay encuentros en agua
-    jr nz, .ChoosePokemon
-    ld b, 5            ; Si no hay encuentros en agua, asignar nivel 5 por defecto
-    jr .ChoosePokemonWithLevel
 
 .ChoosePokemon:
     call Random
@@ -2874,23 +2868,14 @@ ReadSuperRodData:
     ld a, [hl]         ; Obtener el ID del Pokémon
     ld c, a            ; Guardarlo en C
 
-.ChoosePokemonWithLevel:
-    ; Elegir aleatoriamente un Pokémon de los datos de agua
-    ld hl, wWaterMons  ; Tabla de Pokémon salvajes en agua
-
-    ; Obtener un índice aleatorio dentro de los datos de agua
+.ChooseRandomLevel:
+    ; Generar un nivel aleatorio entre 30 y 40
     call Random
-    and %00000110      ; Generamos valores 0, 2, 4, 6 (porque cada entrada tiene 2 bytes: nivel y especie)
-    ld e, a
-    ld d, 0
-    add hl, de         ; Posicionar HL en un Pokémon de la tabla
-    ld a, [hl]         ; Obtener el nivel del Pokémon
-    and a
-    jr nz, .SetPokemon ; Si el nivel es válido, continuar
-    ld a, 5            ; Si no hay datos, usar nivel 5
+    and %00001111      ; Genera un número entre 0 y 15
+    add 30             ; Ajustar para que esté entre 30 y 40
+    ld b, a            ; Guardar el nivel en B
 
 .SetPokemon:
-    ld b, a            ; Guardar el nivel en B
     ld a, $1           ; Indicar que hay un mordisco
     ld e, a            ; Guardarlo en E
     jp RodResponse     ; Saltar a la respuesta de pesca
@@ -2905,8 +2890,6 @@ SuperRodPokemonTable:
     db $63, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
     db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
-
-INCLUDE "data/wild/super_rod.asm"
 
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
