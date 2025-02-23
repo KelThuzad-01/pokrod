@@ -2873,9 +2873,25 @@ ReadSuperRodData:
     ld a, [hl]  ; Obtener el ID del Pokémon
     ld c, a  ; Guardarlo en C
 
+    call GetWildLevel  ; Obtener el nivel adecuado
+    ld b, a  ; Guardarlo en B
+
     ld a, $1  ; Indicar que hay un mordisco
     ld e, a  ; Guardarlo en E
     jp RodResponse  ; Saltar a la respuesta de pesca
+
+; Obtener el nivel del Pokémon salvaje de la zona actual
+GetWildLevel:
+    ld hl, WildPokemonData ; Puntero a los datos de Pokémon salvajes
+    ld a, [wCurMap]        ; Obtener el mapa actual
+    call IsInArray         ; Verificar si el mapa tiene datos de Pokémon salvajes
+    jr c, .FoundWildLevel  ; Si hay datos, usarlos
+    ld a, 5               ; Si no hay datos, usar nivel 5 por defecto
+    ret
+
+.FoundWildLevel
+    ld a, [hl]            ; Obtener el nivel del primer Pokémon salvaje en la zona
+    ret
 
 SuperRodPokemonTable:
     db $01, $02, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $10  ; Lista de Pokémon válidos
@@ -2888,8 +2904,8 @@ SuperRodPokemonTable:
     db $70, $71, $72, $74, $75, $76, $77, $78, $79, $7B, $7C
     db $7D, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89
 
-
 INCLUDE "data/wild/super_rod.asm"
+
 
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
