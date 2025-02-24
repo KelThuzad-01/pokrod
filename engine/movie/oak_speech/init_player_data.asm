@@ -21,8 +21,6 @@ InitPlayerData2:
 	call InitPlayerBag ; Call new function bag to give items
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
-	ld a, ROUTE_12  ; Cambia el mapa de inicio a Ruta 12
-    	ld [wCurMap], a
   	
 DEF START_MONEY EQU $5
 	ld hl, wPlayerMoney + 1
