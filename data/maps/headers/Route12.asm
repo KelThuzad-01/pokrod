@@ -1,5 +1,5 @@
 	map_header Route12, ROUTE_12, OVERWORLD, NORTH | SOUTH | WEST
-	connection north, Route1, ROUTE_1, 0
+	connection north, Route1, ROUTE_1, -1
 	connection south, Route13, ROUTE_13, -20
 	connection west, Route11, ROUTE_11, 27
 	end_map_header
