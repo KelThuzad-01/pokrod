@@ -3,7 +3,6 @@ Route12Gate1F_Script:
 	
 	lb bc, LAPRAS, 15
 	call GivePokemon
-	jr nc, .done
 
 	ld a, [wAddedToParty]
 	and a
