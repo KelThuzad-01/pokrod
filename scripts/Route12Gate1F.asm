@@ -6,8 +6,8 @@ Route12Gate1F_TextPointers:
 	dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
 
 Route12Gate1FGuardText:
-	text_far _Route12Gate1FGuardText
-	text_end
+	;text_far _Route12Gate1FGuardText
+	;text_end
 	ld a, [wStatusFlags4]   ; Cargar el estado del evento
 	bit BIT_GOT_LAPRAS, a   ; Comprobar si ya recibió el Lapras
 	jr nz, .already_have_it ; Si ya lo tiene, continuar con el diálogo normal
