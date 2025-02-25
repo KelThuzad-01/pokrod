@@ -9,7 +9,7 @@ Route12Gate1F_Object:
 	warp_event  5,  0, LAST_MAP, 2
 	warp_event  4,  7, LAST_MAP, 3
 	warp_event  5,  7, LAST_MAP, 3
-	warp_event  8,  6, ROUTE_12_GATE_2F, 1
+	warp_event  8,  6, REDS_HOUSE_2F, 1
 
 	def_bg_events
 
