@@ -2,7 +2,7 @@ RedsHouse2F_Object:
 	db $a ; border block
 
 	def_warp_events
-	warp_event  7,  1, ROUTE_12_GATE_1F, 3
+	warp_event  7,  1, ROUTE_12_GATE_1F, 5
 
 	def_bg_events
 
