@@ -3,10 +3,9 @@ Route12Gate1F_Script:
 
 Route12Gate1F_TextPointers:
 	def_text_pointers
-	dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
+	dw_const Route12Gate1FGuardScript, TEXT_ROUTE12GATE1F_GUARD
 
-Route12Gate1FGuardText:
-	Route12Gate1FGuardScript:
+Route12Gate1FGuardScript:
 	ld a, [wStatusFlags4]   ; Cargar el estado del evento
 	bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
 	jr nz, .already_have_it ; Si sí, ir al mensaje alternativo
@@ -29,8 +28,6 @@ Route12Gate1FGuardText:
 	; Marcar el evento como completado SOLO si lo recibió correctamente
 	ld hl, wStatusFlags4
 	set BIT_GOT_LAPRAS, [hl]
-
-.done
 	ret
 
 .storage_full
@@ -43,10 +40,8 @@ Route12Gate1FGuardText:
 	call PrintText
 	ret
 
-; 🔹 Textos utilizados en el evento
 Route12Gate1F_GiveLaprasText:
-	text "Aquí tienes un Lapras."
-	line "Cuídalo bien."
+	text "Aqui tienes un Lapras."
 	done
 
 Route12Gate1F_LaprasDescriptionText:
