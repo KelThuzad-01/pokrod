@@ -26,7 +26,7 @@ GivePokemonSilent:
     push de
     push bc
 
-    ; Configurar la información del Pokémon
+    ; Obtener la cantidad de Pokémon en el equipo
     ld hl, wPartyCount
     ld a, [hl]
     cp 6
@@ -34,21 +34,22 @@ GivePokemonSilent:
 
     inc [hl]           ; Aumentar la cantidad de Pokémon en el equipo
 
-    ; Apuntar al primer espacio libre en el equipo
+    ; Calcular la posición del nuevo Pokémon en wPartyMons
     ld c, a
+    dec c              ; Ajustar índice (0-based)
     ld b, 0
     ld hl, wPartyMon1Species
-    add hl, bc
-    ld [hl], a         ; Guardar el ID del Pokémon
+    call AddBCtoHL
+    ld [hl], a         ; Guardar la especie del Pokémon
 
-    ; Asignar el nivel
+    ; Asignar nivel
     ld hl, wPartyMon1Level
-    add hl, bc
+    call AddBCtoHL
     ld [hl], b         ; Guardar el nivel
 
-    ; Configurar ID del Entrenador
-    ld hl, wPartyMonOT
-    add hl, bc
+    ; Asignar ID del Entrenador Original (OT ID)
+    ld hl, wPartyMon1ID
+    call AddBCtoHL
     ld de, wPlayerID
     ld a, [de]
     ld [hl], a
@@ -56,6 +57,13 @@ GivePokemonSilent:
     inc de
     ld a, [de]
     ld [hl], a
+
+    ; Asignar nombre del OT (jugador)
+    ld hl, wPartyMonOT
+    call AddBCtoHL
+    ld de, wPlayerName  ; Copiar el nombre del jugador como OT
+    ld bc, NAME_LENGTH
+    call CopyData
 
     pop bc
     pop de
@@ -69,6 +77,20 @@ GivePokemonSilent:
     pop hl
     pop af
     ret
+
+; -------------------------------------------
+; Función auxiliar: HL += BC (desplazamiento)
+; -------------------------------------------
+AddBCtoHL:
+    push de
+    push af
+    ld d, h
+    ld e, l
+    add hl, bc
+    pop af
+    pop de
+    ret
+
 
 Route12Gate1FGuardText:
     text "¡Bienvenido!"
