@@ -20,6 +20,7 @@ Route12Gate1F_Script:
 ; -------------------------------------------
 ; Función para dar un Pokémon sin diálogo ni motes
 ; -------------------------------------------
+
 GivePokemonSilent:
     push af
     push hl
@@ -48,7 +49,7 @@ GivePokemonSilent:
     ld [hl], b         ; Guardar el nivel
 
     ; Asignar ID del Entrenador Original (OT ID)
-    ld hl, wPartyMon1ID
+    ld hl, wPartyMon1 + 8  ; Offset correcto del ID del entrenador
     call AddBCtoHL
     ld de, wPlayerID
     ld a, [de]
@@ -90,7 +91,6 @@ AddBCtoHL:
     pop af
     pop de
     ret
-
 
 Route12Gate1FGuardText:
     text "¡Bienvenido!"
