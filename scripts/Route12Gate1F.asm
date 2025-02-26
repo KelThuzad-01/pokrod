@@ -9,7 +9,7 @@ Route12Gate1F_Script:
     ret nz  ; Si ya se entregó, no hacer nada
 
     ; Dar Lapras automáticamente
-    lb bc, GYARADOS, 20 
+    lb bc, GYARADOS, 15 
     call GivePokemon    ; Entregar el Pokémon
 
     ; Marcar Lapras como entregado
