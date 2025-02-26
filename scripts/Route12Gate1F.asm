@@ -1,3 +1,7 @@
+Route12Gate1F_TextPointers:
+    def_text_pointers
+    dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
+
 Route12Gate1F_Script:
     call Route12Gate1F_CheckLapras
     call EnableAutoTextBoxDrawing
@@ -46,3 +50,9 @@ Route12Gate1F_NoSpaceForLaprasText:
     text "No tienes espacio"
     line "para Lapras."
     done
+
+Route12Gate1FGuardText:
+    text "¡Bienvenido!"
+    line "¡Disfruta tu aventura!"
+    done
+
