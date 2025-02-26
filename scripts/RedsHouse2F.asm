@@ -23,23 +23,25 @@ RedsHouse2FDefaultScript:
     bit BIT_GOT_LAPRAS, a
     ret nz  ; Si ya se entregó, no hacer nada
 
-    ; Entregar Lapras automáticamente
+    call PrintText
     lb bc, GYARADOS, 15   ; Especificar Lapras nivel 15
     call GivePokemon    ; Entregar el Pokémon
+    jr nc, .done
+	
+	ld a, [wAddedToParty]
+	and a
+	call z, WaitForTextScrollButtonPress
+	call EnableAutoTextBoxDrawing
 
-    ; Esperar a que se complete la pantalla de mote sin interferencias
-    ld a, [wAddedToParty]
-    and a
-    call z, WaitForTextScrollButtonPress  ; Asegurar que el jugador pueda interactuar
-    call EnableAutoTextBoxDrawing         ; Restaurar la caja de texto
+
 
     ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]
+	jr .done	
 
-    ret
-
-
+.done
+	jp TextScriptEnd
 
 RedsHouse2FNoopScript:
 	ret
