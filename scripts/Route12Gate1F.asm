@@ -9,20 +9,16 @@ Route12Gate1F_Script:
     ret nz  ; Si ya se entregó, no hacer nada
 
     ; Dar Lapras automáticamente
-    lb bc, LAPRAS, 15   ; Especificar Lapras nivel 15
+    lb bc, GYARADOS, 20 
     call GivePokemon    ; Entregar el Pokémon
-
-    ; Simular pulsación del botón B para cerrar el mote
-    ld a, $02  ; Código del botón B
-    ldh [hJoyHeld], a  ; Simula que el jugador presionó B
-    ld a, $02  ; Código del botón B
-    ldh [hJoyHeld], a  ; Simula que el jugador presionó B
-    ld a, $02  ; Código del botón B
-    ldh [hJoyHeld], a  ; Simula que el jugador presionó B
 
     ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]
+    ld a, $02  ; Código del botón B
+    ldh [hJoyHeld], a  ; Simula que el jugador presionó B
+    ld a, $02  ; Código del botón B
+    ldh [hJoyHeld], a  ; Simula que el jugador presionó B
 
     ret
 
