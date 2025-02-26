@@ -17,7 +17,7 @@ Route12Gate1F_Script:
     ld [wOptions], a        ; Guardamos la configuración temporal
 
     ; Dar Lapras automáticamente
-    lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
+    lb bc, LAPRAS, 20       ; Especificar Lapras nivel 20
     call GivePokemon        ; Entregar el Pokémon
 
     ; Restaurar configuración original
@@ -29,7 +29,6 @@ Route12Gate1F_Script:
     set BIT_GOT_LAPRAS, [hl]
 
     ret
-
 
 Route12Gate1FGuardText:
     text "¡Bienvenido!"
