@@ -18,31 +18,34 @@ RedsHouse2FDefaultScript:
 	ld a, SCRIPT_REDSHOUSE2F_NOOP
 	ld [wRedsHouse2FCurScript], a
 	 ; Verificar si ya se entregó Lapras
-	    ld a, [wStatusFlags4]
-	    bit BIT_GOT_LAPRAS, a
-	    ret nz  ; Si ya se entregó, no hacer nada
-	
-	    ; Entregar Lapras automáticamente
-	    lb bc, GYARADOS, 15   ; Especificar Lapras nivel 15
-	    call GivePokemon    ; Entregar el Pokémon
-	    jr nc, .done        ; Si no se pudo entregar, salir
-	
-	    ; Activar la pantalla de mote correctamente
-	    ld a, [wAddedToParty]
-	    and a
-	    call z, WaitForTextScrollButtonPress  ; Esperar a que el jugador interactúe
-	    call EnableAutoTextBoxDrawing         ; Restaurar la caja de texto
-	
-	    ; Marcar Lapras como entregado
-	    ld hl, wStatusFlags4
-	    set BIT_GOT_LAPRAS, [hl]
-	
-	    ; Llamar a la pantalla de mote
-	    ld a, [wCurPartyMon]
-	    ld [wMonDataLocation], a
-	    ld a, 1
-	    ld [wNamingScreenType], a
-	    callfar DisplayNamingScreen  ; Muestra la pantalla de mote correctamente
+    ld a, [wStatusFlags4]
+    bit BIT_GOT_LAPRAS, a
+    ret nz  ; Si ya se entregó, no hacer nada
+
+    ; Entregar Lapras automáticamente
+    lb bc, LAPRAS, 15   ; Especificar Lapras nivel 15
+    call GivePokemon    ; Entregar el Pokémon
+    jr nc, .done        ; Si no se pudo entregar, salir
+
+    ; Activar la pantalla de mote correctamente
+    ld a, [wAddedToParty]
+    and a
+    call z, WaitForTextScrollButtonPress  ; Esperar a que el jugador interactúe
+    call EnableAutoTextBoxDrawing         ; Restaurar la caja de texto
+
+    ; Obtener la posición del último Pokémon en el equipo
+    ld a, [wPartyCount]   ; Número total de Pokémon
+    dec a                 ; Última posición (porque el índice empieza en 0)
+    ld [wMonDataLocation], a
+
+    ; Marcar Lapras como entregado
+    ld hl, wStatusFlags4
+    set BIT_GOT_LAPRAS, [hl]
+
+    ; Llamar a la pantalla de mote
+    ld a, 1
+    ld [wNamingScreenType], a
+    callfar DisplayNamingScreen  ; Muestra la pantalla de mote correctamente
 
 .done
     ret
