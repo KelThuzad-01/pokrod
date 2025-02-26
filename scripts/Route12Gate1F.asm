@@ -3,53 +3,72 @@ Route12Gate1F_TextPointers:
     dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
 
 Route12Gate1F_Script:
-    call Route12Gate1F_CheckLapras
-    call EnableAutoTextBoxDrawing
-    ret
-
-Route12Gate1F_CheckLapras:
     ld a, [wStatusFlags4]   ; Cargar el estado del evento
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
-    ret nz                  ; Si ya lo tiene, salir
+    ret nz                  ; Si ya lo tiene, salir sin hacer nada.
 
-    ld hl, Route12Gate1F_GiveLaprasText
-    call PrintText          ; Mostrar el mensaje inicial
+    ; Dar Lapras sin mostrar diálogos ni pedir mote
+    ld a, LAPRAS            ; ID de Lapras
+    ld b, 15                ; Nivel 15
+    call GivePokemonSilent  ; Llamamos a la función sin diálogos
 
-    lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
-    call GivePokemon        ; Intentar dar el Pokémon
-    jr nc, .storage_full    ; Si el equipo y cajas están llenos, avisar
-
-    ld a, [wAddedToParty]   ; ¿Se agregó a la caja o al equipo?
-    and a
-    call z, WaitForTextScrollButtonPress
-    call EnableAutoTextBoxDrawing
-    ld hl, Route12Gate1F_LaprasDescriptionText
-    call PrintText          ; Mostrar información del Lapras
-
-    ; Marcar el evento como completado SOLO si lo recibió correctamente
     ld hl, wStatusFlags4
-    set BIT_GOT_LAPRAS, [hl]
+    set BIT_GOT_LAPRAS, [hl] ; Marcar que ya se entregó
+
+    ret ; Salir sin mostrar texto ni interrupciones
+
+; -------------------------------------------
+; Función para dar un Pokémon sin diálogo ni motes
+; -------------------------------------------
+GivePokemonSilent:
+    push af
+    push hl
+    push de
+    push bc
+
+    ; Configurar la información del Pokémon
+    ld hl, wPartyCount
+    ld a, [hl]
+    cp 6
+    jr nc, .no_space   ; Si el equipo está lleno, salir
+
+    inc [hl]           ; Aumentar la cantidad de Pokémon en el equipo
+
+    ; Apuntar al primer espacio libre en el equipo
+    ld c, a
+    ld b, 0
+    ld hl, wPartyMon1Species
+    add hl, bc
+    ld [hl], a         ; Guardar el ID del Pokémon
+
+    ; Asignar el nivel
+    ld hl, wPartyMon1Level
+    add hl, bc
+    ld [hl], b         ; Guardar el nivel
+
+    ; Configurar ID del Entrenador
+    ld hl, wPartyMonOTID
+    add hl, bc
+    ld de, wPlayerID
+    ld a, [de]
+    ld [hl], a
+    inc hl
+    inc de
+    ld a, [de]
+    ld [hl], a
+
+    pop bc
+    pop de
+    pop hl
+    pop af
     ret
 
-.storage_full:
-    ld hl, Route12Gate1F_NoSpaceForLaprasText
-    call PrintText
+.no_space:
+    pop bc
+    pop de
+    pop hl
+    pop af
     ret
-
-Route12Gate1F_GiveLaprasText:
-    text "¡Te entrego un Lapras!"
-    line "Es un Pokémon fuerte."
-    done
-
-Route12Gate1F_LaprasDescriptionText:
-    text "Lapras es muy noble."
-    line "Cudalo bien."
-    done
-
-Route12Gate1F_NoSpaceForLaprasText:
-    text "No tienes espacio"
-    line "para Lapras."
-    done
 
 Route12Gate1FGuardText:
     text "¡Bienvenido!"
