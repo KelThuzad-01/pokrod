@@ -47,7 +47,7 @@ GivePokemonSilent:
     ld [hl], b         ; Guardar el nivel
 
     ; Configurar ID del Entrenador
-    ld hl, wPartyMonOTID
+    ld hl, wPartyMonOT
     add hl, bc
     ld de, wPlayerID
     ld a, [de]
