@@ -17,8 +17,7 @@ RedsHouse2FDefaultScript:
 	ld [wPlayerMovingDirection], a
 	ld a, SCRIPT_REDSHOUSE2F_NOOP
 	ld [wRedsHouse2FCurScript], a
-	
-   Route12Gate1F_Script:
+
     ; Verificar si ya se entregó Lapras
     ld a, [wStatusFlags4]
     bit BIT_GOT_LAPRAS, a
