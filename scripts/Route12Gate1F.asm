@@ -8,23 +8,28 @@ Route12Gate1F_Script:
     bit BIT_GOT_LAPRAS, a
     ret nz  ; Si ya se entregó, no hacer nada
 
-    ; Dar Lapras automáticamente
+    ; Guardar configuración actual
     ld a, [wOptions]
     push af                 ; Guardamos la configuración original
-    res 6, a                ; Desactiva la opción de mote
+
+    ; Desactivar la opción de mote
+    res 6, a                ; Borra el bit que habilita la pregunta de mote
     ld [wOptions], a        ; Guardamos la configuración temporal
 
+    ; Dar Lapras automáticamente
     lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
-    call GivePokemon        ; Intentar dar el Pokémon
+    call GivePokemon        ; Entregar el Pokémon
 
+    ; Restaurar configuración original
     pop af
-    ld [wOptions], a        ; Restaurar la configuración original
+    ld [wOptions], a        ; Restauramos el estado anterior de las opciones
 
     ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]
 
     ret
+
 
 Route12Gate1FGuardText:
     text "¡Bienvenido!"
