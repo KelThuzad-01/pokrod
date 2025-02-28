@@ -30,11 +30,13 @@ Route12Gate1FGuardText:
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]  ; Marcar que ya se recibió Lapras
 
+    ; Esperar a que el jugador cierre el diálogo antes de mover el guardia
+    call WaitForTextScrollButtonPress
+
     ; Mover al guardia un espacio hacia arriba
-    ld a, SPRITE_GUARD
-    ldh [hSpriteIndex], a
-    ld de, .GuardMoveUp
-    call MoveSprite
+    ld a, HS_ROUTE12GATE1F_GUARD ; ID del guardia en el mapa
+    ld [wMissableObjectIndex], a
+    predef MoveObjectUp ; Llamar a la función de mover NPC
 
     jr .done
 
@@ -71,8 +73,3 @@ Route12Gate1FGuardText:
     text "No tienes espacio"
     line "para Lapras."
     done
-
-; Movimiento del guardia hacia arriba
-.GuardMoveUp:
-    db NPC_MOVEMENT_UP
-    db -1 ; Fin del movimiento
