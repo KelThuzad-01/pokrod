@@ -42,11 +42,6 @@ Route12Gate1FGuardText:
     call PrintText
     jp TextScriptEnd
 
-.storage_full
-    ld hl, StorageFullText
-    call PrintText
-    jp TextScriptEnd
-
 GiveLapras:
     ld hl, GiveLaprasText
     call PrintText          ; Mostrar el mensaje inicial
@@ -65,6 +60,11 @@ GiveLapras:
 
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]  ; Marcar que ya se recibió Lapras
+    ret
+
+.storage_full
+    ld hl, StorageFullText
+    call PrintText
     ret
 
 ; Definimos los textos
