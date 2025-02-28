@@ -35,22 +35,20 @@ Route12Gate1FGuardText:
 
 .give_lapras
     call GiveLapras
-    jr .done
+    jp TextScriptEnd
 
 .already_have_it
-    ld hl, .AlreadyHaveLaprasText
+    ld hl, AlreadyHaveLaprasText
     call PrintText
-    jr .done
+    jp TextScriptEnd
 
 .storage_full
-    ld hl, .StorageFullText
+    ld hl, StorageFullText
     call PrintText
-
-.done
     jp TextScriptEnd
 
 GiveLapras:
-    ld hl, .GiveLaprasText
+    ld hl, GiveLaprasText
     call PrintText          ; Mostrar el mensaje inicial
 
     lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
@@ -62,7 +60,7 @@ GiveLapras:
     call z, WaitForTextScrollButtonPress
     call EnableAutoTextBoxDrawing
 
-    ld hl, .LaprasDescriptionText
+    ld hl, LaprasDescriptionText
     call PrintText          ; Mostrar información del Lapras
 
     ld hl, wStatusFlags4
@@ -71,22 +69,22 @@ GiveLapras:
 
 ; Definimos los textos
 
-.GiveLaprasText
+GiveLaprasText:
     text "Toma este Lapras."
     line "Es muy inteligente."
     done
 
-.LaprasDescriptionText
+LaprasDescriptionText:
     text "Lapras es un gran"
     line "nadador. Cuidalo!"
     done
 
-.AlreadyHaveLaprasText
+AlreadyHaveLaprasText:
     text "Espero que estes"
     line "cuidando a Lapras."
     done
 
-.StorageFullText
+StorageFullText:
     text "No tienes espacio"
     line "para Lapras."
     done
