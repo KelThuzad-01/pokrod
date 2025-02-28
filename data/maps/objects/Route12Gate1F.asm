@@ -14,6 +14,6 @@ Route12Gate1F_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  6,  5, SPRITE_GUARD, STAY, NONE, TEXT_ROUTE12GATE1F_GUARD
+	object_event  6,  4, SPRITE_GUARD, STAY, NONE, TEXT_ROUTE12GATE1F_GUARD
 
 	def_warps_to ROUTE_12_GATE_1F
