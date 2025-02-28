@@ -1,3 +1,5 @@
+EXPORT DisplayNamingScreen
+
 AskName:
 	call SaveScreenTilesToBuffer1
 	call GetPredefRegisters
