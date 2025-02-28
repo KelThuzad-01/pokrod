@@ -29,6 +29,13 @@ Route12Gate1FGuardText:
 
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]  ; Marcar que ya se recibió Lapras
+
+    ; Mover al guardia un espacio hacia arriba
+    ld a, SPRITE_GUARD
+    ldh [hSpriteIndex], a
+    ld de, .GuardMoveUp
+    call MoveSprite
+
     jr .done
 
 .already_have_it
@@ -47,16 +54,25 @@ Route12Gate1FGuardText:
 
 .GiveLaprasText
     text "Toma este Lapras."
+    line "Es muy inteligente."
     done
 
 .LaprasDescriptionText
     text "Lapras es un gran"
+    line "nadador. Cuidalo!"
     done
 
 .AlreadyHaveLaprasText
+    text "Espero que estes"
     line "cuidando a Lapras."
     done
 
 .StorageFullText
     text "No tienes espacio"
+    line "para Lapras."
     done
+
+; Movimiento del guardia hacia arriba
+.GuardMoveUp:
+    db NPC_MOVEMENT_UP
+    db -1 ; Fin del movimiento
