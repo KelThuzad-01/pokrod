@@ -7,6 +7,7 @@ Route12Gate1F_TextPointers:
 
 Route12Gate1FGuardText:
 	text_far _Route12Gate1FGuardText
+	text_end
 	call PrintText
 	lb bc, LAPRAS, 15
 	call GivePokemon
@@ -16,7 +17,7 @@ Route12Gate1FGuardText:
 	call z, WaitForTextScrollButtonPress
 	call EnableAutoTextBoxDrawing
 	call PrintText
-	text_end
+	
 
 .done
 	jp TextScriptEnd
