@@ -15,7 +15,7 @@ Route12Gate1FGuardText:
     ld hl, .GiveLaprasText
     call PrintText          ; Mostrar el mensaje inicial
 
-    lb bc, GYARADOS, 15       ; Especificar Lapras nivel 15
+    lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
     call GivePokemon        ; Intentar dar el Pokémon
     jr nc, .storage_full    ; Si el equipo y cajas están llenos, avisar
 
@@ -33,10 +33,13 @@ Route12Gate1FGuardText:
     ; Esperar a que el jugador cierre el diálogo antes de mover el guardia
     call WaitForTextScrollButtonPress
 
-    ; Mover al guardia un espacio hacia arriba
-    ld a, HS_ROUTE12GATE1F_GUARD ; ID del guardia en el mapa
-    ld [wMissableObjectIndex], a
-    predef MoveObjectUp ; Llamar a la función de mover NPC
+    ; Mover el guardia un espacio hacia arriba
+    ld a, ROUTE12GATE1F_GUARD_ID  ; ID del guardia en el mapa (debes definirlo)
+    ldh [hSpriteIndex], a
+    ld a, SPRITE_FACING_UP        ; Dirección hacia arriba
+    ld [wSpriteFacingDirection], a
+    ld de, .MoveGuardUp
+    call MoveSprite
 
     jr .done
 
@@ -51,6 +54,11 @@ Route12Gate1FGuardText:
 
 .done
     jp TextScriptEnd
+
+; Movimiento del guardia (hacia arriba)
+.MoveGuardUp:
+    db NPC_MOVEMENT_UP
+    db -1 ; Fin del movimiento
 
 ; Definimos los textos
 
