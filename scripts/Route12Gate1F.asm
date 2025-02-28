@@ -1,5 +1,27 @@
 Route12Gate1F_Script:
-    jp EnableAutoTextBoxDrawing
+    call EnableAutoTextBoxDrawing
+    call CheckPlayerPosition  ; Verificar si el jugador está en (6,3)
+    ret
+
+CheckPlayerPosition:
+    ld a, [wXCoord]  ; Cargar coordenada X del jugador
+    cp 6             ; Comparar con la posición X del guardia
+    jr nz, .done     ; Si no está en X = 6, salir
+
+    ld a, [wYCoord]  ; Cargar coordenada Y del jugador
+    cp 3             ; Comparar con la posición Y debajo del guardia
+    jr nz, .done     ; Si no está en Y = 3, salir
+
+    ; Si el jugador está en (6,3), entregar Lapras
+    ld a, [wStatusFlags4]   ; Cargar el estado del evento
+    bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
+    jr nz, .done            ; Si sí, salir
+
+    call GiveLapras
+    ret
+
+.done
+    ret
 
 Route12Gate1F_TextPointers:
     def_text_pointers
@@ -12,6 +34,22 @@ Route12Gate1FGuardText:
     jr nz, .already_have_it ; Si ya lo tiene, mostrar mensaje alternativo
 
 .give_lapras
+    call GiveLapras
+    jr .done
+
+.already_have_it
+    ld hl, .AlreadyHaveLaprasText
+    call PrintText
+    jr .done
+
+.storage_full
+    ld hl, .StorageFullText
+    call PrintText
+
+.done
+    jp TextScriptEnd
+
+GiveLapras:
     ld hl, .GiveLaprasText
     call PrintText          ; Mostrar el mensaje inicial
 
@@ -29,19 +67,7 @@ Route12Gate1FGuardText:
 
     ld hl, wStatusFlags4
     set BIT_GOT_LAPRAS, [hl]  ; Marcar que ya se recibió Lapras
-    jr .done
-
-.already_have_it
-    ld hl, .AlreadyHaveLaprasText
-    call PrintText
-    jr .done
-
-.storage_full
-    ld hl, .StorageFullText
-    call PrintText
-
-.done
-    jp TextScriptEnd
+    ret
 
 ; Definimos los textos
 
