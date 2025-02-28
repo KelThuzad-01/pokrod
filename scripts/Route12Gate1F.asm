@@ -1,3 +1,6 @@
+const ROUTE12GATE1F_GUARD EQU 99
+
+
 Route12Gate1F_Script:
     jp EnableAutoTextBoxDrawing
 
