@@ -43,26 +43,32 @@ Route12Gate1FGuardText:
     jp TextScriptEnd
 
 GiveLapras:
-    ld hl, GiveLaprasText
-    call PrintText          ; Mostrar el mensaje inicial
+    ld a, [wStatusFlags4]   ; Cargar el estado del evento
+    bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
+    ret nz                  ; Si ya lo tiene, no hacer nada
 
-    lb bc, LAPRAS, 15       ; Especificar Lapras nivel 15
-    call GivePokemon        ; Intentar dar el Pokémon
-    jr nc, .storage_full    ; Si el equipo y cajas están llenos, avisar
+    ; Simular diálogo con el guardia
+    ld a, TEXT_ROUTE12GATE1F_GUARD
+    ld [wCurNPCTextID], a
+    call DisplayTextID  ; Mostrar el cuadro de texto como si habláramos con el guardia
 
-    ld a, [wAddedToParty]   ; ¿Se agregó a la caja o al equipo?
-    and a
-    call z, WaitForTextScrollButtonPress
+    ; Dar Lapras nivel 15
+    lb bc, LAPRAS, 15
+    call GivePokemon
+    jr nc, .storage_full    ; Si el equipo está lleno, mostrar aviso
+
+    ; Mostrar la pantalla de mote
+    call WaitForTextScrollButtonPress
     call EnableAutoTextBoxDrawing
+    call DisplayNamingScreen  ; Mostrar la pantalla de nombre
 
-    ; Mostrar la pantalla de mote correctamente
-    call DisplayNamingScreen
-
+    ; Mostrar el texto de descripción de Lapras
     ld hl, LaprasDescriptionText
-    call PrintText          ; Mostrar información del Lapras
+    call PrintText
 
+    ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
-    set BIT_GOT_LAPRAS, [hl]  ; Marcar que ya se recibió Lapras
+    set BIT_GOT_LAPRAS, [hl]
     ret
 
 .storage_full
@@ -70,21 +76,9 @@ GiveLapras:
     call PrintText
     ret
 
-; Definimos los textos
-
-GiveLaprasText:
-    text "Toma este Lapras."
-    line "Es muy inteligente."
-    done
-
 LaprasDescriptionText:
     text "Lapras es un gran"
-    line "nadador. Cuidalo!"
-    done
-
-AlreadyHaveLaprasText:
-    text "Espero que estes"
-    line "cuidando a Lapras."
+    line "nadador. ¡Cuídalo!"
     done
 
 StorageFullText:
