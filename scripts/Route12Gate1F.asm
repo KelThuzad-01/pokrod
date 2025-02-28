@@ -1,6 +1,6 @@
 Route12Gate1F_Script:
     call EnableAutoTextBoxDrawing
-    call CheckPlayerPosition  ; Verificar si el jugador está en (6,3)
+    call CheckPlayerPosition  ; Verificar si el jugador está en (6,5)
     ret
 
 CheckPlayerPosition:
@@ -9,10 +9,10 @@ CheckPlayerPosition:
     jr nz, .done     ; Si no está en X = 6, salir
 
     ld a, [wYCoord]  ; Cargar coordenada Y del jugador
-    cp 3             ; Comparar con la posición Y debajo del guardia
-    jr nz, .done     ; Si no está en Y = 3, salir
+    cp 5             ; Comparar con la posición Y debajo del guardia (ajustado)
+    jr nz, .done     ; Si no está en Y = 5, salir
 
-    ; Si el jugador está en (6,3), entregar Lapras
+    ; Si el jugador está en (6,5), entregar Lapras
     ld a, [wStatusFlags4]   ; Cargar el estado del evento
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
     jr nz, .done            ; Si sí, salir
@@ -54,6 +54,9 @@ GiveLapras:
     and a
     call z, WaitForTextScrollButtonPress
     call EnableAutoTextBoxDrawing
+
+    ; Mostrar la pantalla de mote correctamente
+    call DisplayNamingScreen
 
     ld hl, LaprasDescriptionText
     call PrintText          ; Mostrar información del Lapras
