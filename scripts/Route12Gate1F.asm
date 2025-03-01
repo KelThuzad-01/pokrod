@@ -47,10 +47,9 @@ GiveLapras:
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
     ret nz                  ; Si ya lo tiene, no hacer nada
 
-    ; Simular diálogo con el guardia
-    ld a, TEXT_ROUTE12GATE1F_GUARD
-    ld [wCurNPCTextID], a
-    call DisplayTextID  ; Mostrar el cuadro de texto como si habláramos con el guardia
+    ; Mostrar el mensaje inicial
+    ld hl, GiveLaprasText
+    call PrintText
 
     ; Dar Lapras nivel 15
     lb bc, LAPRAS, 15
@@ -60,7 +59,7 @@ GiveLapras:
     ; Mostrar la pantalla de mote
     call WaitForTextScrollButtonPress
     call EnableAutoTextBoxDrawing
-    call DisplayNamingScreen  ; Mostrar la pantalla de nombre
+    farcall DisplayNamingScreen  ; Mostrar la pantalla de nombre
 
     ; Mostrar el texto de descripción de Lapras
     ld hl, LaprasDescriptionText
@@ -76,6 +75,13 @@ GiveLapras:
     call PrintText
     ret
 
+; Textos correctamente definidos
+
+GiveLaprasText:
+    text "Toma este Lapras."
+    line "Es muy inteligente."
+    done
+
 LaprasDescriptionText:
     text "Lapras es un gran"
     line "nadador. ¡Cuídalo!"
@@ -85,3 +91,4 @@ StorageFullText:
     text "No tienes espacio"
     line "para Lapras."
     done
+
