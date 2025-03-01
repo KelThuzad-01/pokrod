@@ -18,6 +18,6 @@ Route12Gate1FPokeballText:
 	ld a, HS_ROUTE12_GATE1F_POKEMON_GIFT
 	ld [wMissableObjectIndex], a
 	predef HideObject
-	db ROUTE_12_GATE_1F, ROUTE12_GATE1F_POKEMON_POKEBALL, SHOW
+	db ROUTE_12_GATE_1F, ROUTE12_GATE1F_POKEMON_POKEBALL, HIDE
 .party_full
 	jp TextScriptEnd
