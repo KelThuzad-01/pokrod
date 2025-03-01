@@ -1,6 +1,6 @@
 Route12Gate1F_Script:
     call EnableAutoTextBoxDrawing
-    call CheckPlayerPosition  ; Verificar si el jugador está en (6,5)
+    call CheckPlayerPosition  ; Verificar si el jugador está en (6,3)
     ret
 
 CheckPlayerPosition:
@@ -9,10 +9,10 @@ CheckPlayerPosition:
     jr nz, .done     ; Si no está en X = 6, salir
 
     ld a, [wYCoord]  ; Cargar coordenada Y del jugador
-    cp 5             ; Comparar con la posición Y debajo del guardia (ajustado)
-    jr nz, .done     ; Si no está en Y = 5, salir
+    cp 3             ; Comparar con la posición Y debajo del guardia (ajustado)
+    jr nz, .done     ; Si no está en Y = 3, salir
 
-    ; Si el jugador está en (6,5), entregar Lapras
+    ; Si el jugador está en (6,3), entregar Lapras
     ld a, [wStatusFlags4]   ; Cargar el estado del evento
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
     jr nz, .done            ; Si sí, salir
@@ -47,10 +47,9 @@ GiveLapras:
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
     ret nz                  ; Si ya lo tiene, no hacer nada
 
-    ; Mostrar el mensaje inicial como si el jugador estuviera hablando con un NPC
-    ld a, TEXT_GIVELAPRAS
-    ld [wCurTextID], a
-    call DisplayTextID
+    ; Mostrar el mensaje inicial
+    ld hl, GiveLaprasText
+    call PrintText
 
     ; Dar Lapras nivel 15
     lb bc, LAPRAS, 15
@@ -65,9 +64,8 @@ GiveLapras:
     farcall DisplayNamingScreen
 
     ; Mostrar el texto de descripción de Lapras
-    ld a, TEXT_LAPRASDESCRIPTION
-    ld [wCurTextID], a
-    call DisplayTextID
+    ld hl, LaprasDescriptionText
+    call PrintText
 
     ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
@@ -75,21 +73,15 @@ GiveLapras:
     ret
 
 .storage_full
-    ld a, TEXT_STORAGEFULL
-    ld [wCurTextID], a
-    call DisplayTextID
+    ld hl, StorageFullText
+    call PrintText
     ret
-
-; Definimos los textos como identificadores para DisplayTextID
-TEXT_GIVELAPRAS          EQU 1
-TEXT_LAPRASDESCRIPTION   EQU 2
-TEXT_STORAGEFULL         EQU 3
 
 Route12Gate1F_TextPointers:
     def_text_pointers
-    dw_const GiveLaprasText, TEXT_GIVELAPRAS
-    dw_const LaprasDescriptionText, TEXT_LAPRASDESCRIPTION
-    dw_const StorageFullText, TEXT_STORAGEFULL
+    dw_const GiveLaprasText, TEXT_ROUTE12GATE1F_GUARD
+    dw_const LaprasDescriptionText, TEXT_ROUTE12GATE1F_LAPRAS_DESCRIPTION
+    dw_const StorageFullText, TEXT_ROUTE12GATE1F_STORAGE_FULL
 
 GiveLaprasText:
     text "Toma este Lapras."
@@ -98,7 +90,7 @@ GiveLaprasText:
 
 LaprasDescriptionText:
     text "Lapras es un gran"
-    line "nadador. ¡Cuídalo!"
+    line "nadador. ¡Cuidalo!"
     done
 
 StorageFullText:
@@ -106,8 +98,7 @@ StorageFullText:
     line "para Lapras."
     done
 
-
 AlreadyHaveLaprasText:
-	text "Espero que estés"
-	line "cuidando a Lapras."
-	done
+    text "Espero que estes"
+    line "cuidando a Lapras."
+    done
