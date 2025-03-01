@@ -92,3 +92,7 @@ StorageFullText:
     line "para Lapras."
     done
 
+AlreadyHaveLaprasText:
+	text "Espero que estés"
+	line "cuidando a Lapras."
+	done
