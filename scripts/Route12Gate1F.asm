@@ -23,10 +23,6 @@ CheckPlayerPosition:
 .done
     ret
 
-Route12Gate1F_TextPointers:
-    def_text_pointers
-    dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
-
 Route12Gate1FGuardText:
     text_asm
     ld a, [wStatusFlags4]   ; Cargar el estado del evento
@@ -79,9 +75,7 @@ GiveLapras:
 
 Route12Gate1F_TextPointers:
     def_text_pointers
-    dw_const GiveLaprasText, TEXT_ROUTE12GATE1F_GUARD
-    dw_const LaprasDescriptionText, TEXT_ROUTE12GATE1F_LAPRAS_DESCRIPTION
-    dw_const StorageFullText, TEXT_ROUTE12GATE1F_STORAGE_FULL
+    dw_const Route12Gate1FGuardText, TEXT_ROUTE12GATE1F_GUARD
 
 GiveLaprasText:
     text "Toma este Lapras."
@@ -90,7 +84,7 @@ GiveLaprasText:
 
 LaprasDescriptionText:
     text "Lapras es un gran"
-    line "nadador. ¡Cuidalo!"
+    line "nadador. ¡Cuídalo!"
     done
 
 StorageFullText:
@@ -99,6 +93,6 @@ StorageFullText:
     done
 
 AlreadyHaveLaprasText:
-    text "Espero que estes"
+    text "Espero que estés"
     line "cuidando a Lapras."
     done
