@@ -1,6 +1,6 @@
 	object_const_def
 	const_export ROUTE12GATE1F_GUARD
-	const_export TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
+	const_export ROUTE12_GATE1F_POKEMON_POKEBALL
 
 Route12Gate1F_Object:
 	db $a ; border block
