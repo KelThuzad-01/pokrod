@@ -1,5 +1,6 @@
 	object_const_def
 	const_export ROUTE12GATE1F_GUARD
+	const_export TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
 
 Route12Gate1F_Object:
 	db $a ; border block
@@ -15,5 +16,6 @@ Route12Gate1F_Object:
 
 	def_object_events
 	object_event  1,  3, SPRITE_GUARD, STAY, NONE, TEXT_ROUTE12GATE1F_GUARD
+	object_event  3,  6, SPRITE_POKE_BALL, STAY, NONE, TEXT_CELADONMANSION_ROOF_HOUSE_EEVEE_POKEBALL
 
 	def_warps_to ROUTE_12_GATE_1F
