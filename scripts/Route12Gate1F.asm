@@ -47,23 +47,27 @@ GiveLapras:
     bit BIT_GOT_LAPRAS, a   ; ¿Ya recibió Lapras?
     ret nz                  ; Si ya lo tiene, no hacer nada
 
-    ; Mostrar el mensaje inicial
-    ld hl, GiveLaprasText
-    call PrintText
+    ; Mostrar el mensaje inicial como si el jugador estuviera hablando con un NPC
+    ld a, TEXT_GIVELAPRAS
+    ld [wCurTextID], a
+    call DisplayTextID
 
     ; Dar Lapras nivel 15
     lb bc, LAPRAS, 15
     call GivePokemon
     jr nc, .storage_full    ; Si el equipo está lleno, mostrar aviso
 
-    ; Mostrar la pantalla de mote
+    ; Esperar a que el jugador presione un botón
     call WaitForTextScrollButtonPress
     call EnableAutoTextBoxDrawing
-    farcall DisplayNamingScreen  ; Mostrar la pantalla de nombre
+
+    ; Mostrar la pantalla de mote
+    farcall DisplayNamingScreen
 
     ; Mostrar el texto de descripción de Lapras
-    ld hl, LaprasDescriptionText
-    call PrintText
+    ld a, TEXT_LAPRASDESCRIPTION
+    ld [wCurTextID], a
+    call DisplayTextID
 
     ; Marcar Lapras como entregado
     ld hl, wStatusFlags4
@@ -71,11 +75,21 @@ GiveLapras:
     ret
 
 .storage_full
-    ld hl, StorageFullText
-    call PrintText
+    ld a, TEXT_STORAGEFULL
+    ld [wCurTextID], a
+    call DisplayTextID
     ret
 
-; Textos correctamente definidos
+; Definimos los textos como identificadores para DisplayTextID
+TEXT_GIVELAPRAS          EQU 1
+TEXT_LAPRASDESCRIPTION   EQU 2
+TEXT_STORAGEFULL         EQU 3
+
+Route12Gate1F_TextPointers:
+    def_text_pointers
+    dw_const GiveLaprasText, TEXT_GIVELAPRAS
+    dw_const LaprasDescriptionText, TEXT_LAPRASDESCRIPTION
+    dw_const StorageFullText, TEXT_STORAGEFULL
 
 GiveLaprasText:
     text "Toma este Lapras."
@@ -91,6 +105,7 @@ StorageFullText:
     text "No tienes espacio"
     line "para Lapras."
     done
+
 
 AlreadyHaveLaprasText:
 	text "Espero que estés"
