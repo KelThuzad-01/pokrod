@@ -1,3 +1,6 @@
+const_def
+EVENT_GOT_ROUTE12_GYARADOS
+
 Route12_Script:
 	call EnableAutoTextBoxDrawing
 	ld hl, Route12TrainerHeaders
