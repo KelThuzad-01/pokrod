@@ -1,3 +1,6 @@
+const EVENT_GOT_ROUTE12_POKEMON
+
+
 Route12Gate1F_Script:
 	jp EnableAutoTextBoxDrawing
 
@@ -12,7 +15,7 @@ Route12Gate1FGuardText:
 
 Route12Gate1FPokeballText:
 	text_asm
-	CheckEvent EVENT_GOT_ROUTE12_GYARADOS  ; Verificar si ya se recogió el Pokémon
+	CheckEvent EVENT_GOT_ROUTE12_POKEMON  ; Verificar si ya se recogió el Pokémon
 	jr nz, .already_got_it                 ; Si ya lo tiene, salir
 
 	lb bc, GYARADOS, 15
@@ -20,7 +23,7 @@ Route12Gate1FPokeballText:
 	jr nc, .party_full  ; Si el equipo está lleno, mostrar mensaje
 
 	; Marcar el evento como completado
-	SetEvent EVENT_GOT_ROUTE12_GYARADOS  
+	SetEvent EVENT_GOT_ROUTE12_POKEMON  
 
 	; Ocultar la Poké Ball del mapa
 	ld a, HS_ROUTE12_GATE1F_POKEMON_GIFT
