@@ -1,8 +1,16 @@
 const EVENT_GOT_ROUTE12_POKEMON
 
-
 Route12Gate1F_Script:
 	jp EnableAutoTextBoxDrawing
+	CheckEvent EVENT_GOT_ROUTE12_GYARADOS
+    	jp nz, .hide_pokeball
+    	ret
+
+.hide_pokeball
+    ld a, HS_ROUTE12_GATE1F_POKEMON_GIFT
+    ld [wMissableObjectIndex], a
+    predef HideObject
+    ret
 
 Route12Gate1F_TextPointers:
 	def_text_pointers
