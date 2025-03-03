@@ -51,6 +51,12 @@ Route12Gate1FPokeballText:
 	ld a, HS_ROUTE12_GATE1F_POKEMON_GIFT
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	
+.party_full
+	jp TextScriptEnd
+
+.already_got_it
+	jp TextScriptEnd  ; Si ya se recogió, no hacer nada
 
 ; ---------------------------------
 ; Función para seleccionar un Pokémon aleatorio
@@ -88,9 +94,3 @@ GiftPokemonTable:
     db VAPOREON
     db OMASTAR
     db KABUTOPS
-	
-.party_full
-	jp TextScriptEnd
-
-.already_got_it
-	jp TextScriptEnd  ; Si ya se recogió, no hacer nada
