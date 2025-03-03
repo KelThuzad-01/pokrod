@@ -1863,7 +1863,7 @@ ItemUseOldRod:
 .NoBite:
     xor a                 ; Asegurar que e = 0 si no hay picada
     ld [wRodResponse], a  ; Guardar que NO hubo mordida
-    call FishingAnim
+    farcall FishingAnim
     call GiveRandomItem   ; Dar un objeto aleatorio
     ret
     ;jp RodResponse        ; Volver a la función original
