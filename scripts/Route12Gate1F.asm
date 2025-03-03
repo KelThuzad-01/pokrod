@@ -14,10 +14,9 @@ Route12Gate1FGuardText:
 	text_end
 	jp TextScriptEnd
 .heal
-	call RedsHouse1FMomHealScript
+	call RedsHouse1FMomHealScript2
 
-RedsHouse1FMomHealScript:
-	ld hl, RedsHouse1FMomYouShouldRestText
+RedsHouse1FMomHealScript2:
 	call PrintText
 	call GBFadeOutToWhite
 	call ReloadMapData
