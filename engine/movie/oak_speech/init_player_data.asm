@@ -22,7 +22,7 @@ InitPlayerData2:
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
   	
-DEF START_MONEY EQU $5
+DEF START_MONEY EQU $0
 	ld hl, wPlayerMoney + 1
 	ld a, HIGH(START_MONEY)
 	ld [hld], a
@@ -57,7 +57,7 @@ InitializeEmptyList:
 
 InitPlayerBag:
     ld hl, wNumBagItems   ; Apunta al número de objetos en la mochila
-    ld [hl], 3            ; Número de objetos iniciales (ajústalo si agregas más)
+    ld [hl], 2            ; Número de objetos iniciales (ajústalo si agregas más)
 
     ld hl, wBagItems
     ld [hl], OLD_ROD      ; Primer objeto
@@ -67,12 +67,7 @@ InitPlayerBag:
 
     ld [hl], POKE_BALL    ; Segundo objeto: Poké Ball
     inc hl
-    ld [hl], 25           ; Cantidad: 25
-    inc hl
-
-    ld [hl], POKEDEX      ; Tercer objeto: POKEDEX
-    inc hl
-    ld [hl], 1            ; Cantidad: 1
+    ld [hl], 99           
     inc hl
 
     ld [hl], $FF          ; Terminador de lista de objetos (obligatorio)
