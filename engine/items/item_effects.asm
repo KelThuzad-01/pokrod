@@ -1904,7 +1904,7 @@ OldRodItemTable:
     db BURN_HEAL
     db POKE_BALL
     db ICE_HEAL
-    db PARALYZE_HEAL
+    db PARLYZ_HEAL
     db MOON_STONE
 
 ; -------------------------------
