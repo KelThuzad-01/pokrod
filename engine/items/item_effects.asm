@@ -1907,9 +1907,9 @@ OldRodItemTable:
 ; Mensaje de objeto recibido
 ; -------------------------------
 OldRodItemMessage:
-    text "Sacaste un objeto del agua!"
-    line "Lo guardaste en tu bolsa."
-    done
+    text "Oh!"
+    line "It's a item!"
+    prompt
 
 OldRodPokemonTable:
     db $85, $02, $03, $04, $05, $06, $0B, $0C, $0D, $0F, $11  ; Lista de Pokémon válidos
