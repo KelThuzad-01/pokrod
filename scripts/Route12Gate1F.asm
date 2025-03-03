@@ -54,4 +54,5 @@ Route12Gate1FPokeballText:
 	jp TextScriptEnd
 
 .already_got_it
+	text "The POKÉBALL is empty."
 	jp TextScriptEnd  ; Si ya se recogió, no hacer nada
