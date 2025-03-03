@@ -1876,10 +1876,11 @@ GiveRandomItem:
     ld d, 0
     ld e, a
     add hl, de
-    ld a, [hl]             ; Obtener el ID del objeto
+    ld a, [hl]             ; Obtener el ID del objet
+    ld b,a
 
     ; Dar el objeto al jugador
-    lb bc, a, 1            ; Cantidad 1 del objeto seleccionado
+    ld c, 1            ; Cantidad 1 del objeto seleccionado
     call GiveItem          
 
     ; Mostrar mensaje de objeto recibido
