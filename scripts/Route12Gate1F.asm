@@ -40,7 +40,7 @@ Route12Gate1FPokeballText:
 	call ChooseRandomGiftPokemon   ; Selecciona un Pokémon aleatorio
 
 	ld b, a
-	ld, c, 15
+	ld c, 15
 	call GivePokemon
 	jr nc, .party_full  ; Si el equipo está lleno, mostrar mensaje
 
