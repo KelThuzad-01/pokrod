@@ -1827,6 +1827,8 @@ ItemUseOldRod:
     call FishingInit
     jp c, ItemUseNotTime  ; Si no es momento de pescar, salir
 
+    call FishingAnim
+
     call Random
     srl a                 ; 50% de probabilidad de picar
     jr c, .NoBite         ; Si no pica, ir a .NoBite
@@ -1863,6 +1865,7 @@ ItemUseOldRod:
 .NoBite:
     xor a                 ; Asegurar que e = 0 si no hay picada
     ld [wRodResponse], a  ; Guardar que NO hubo mordida
+    call FishingAnim
     call GiveRandomItem   ; Dar un objeto aleatorio
     ret
     ;jp RodResponse        ; Volver a la función original
