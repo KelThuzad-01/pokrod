@@ -37,8 +37,9 @@ Route12Gate1FPokeballText:
 	text_asm
 	CheckEvent EVENT_GOT_ROUTE12_POKEMON  ; Verificar si ya se recogió el Pokémon
 	jr nz, .already_got_it                 ; Si ya lo tiene, salir
+	call ChooseRandomGiftPokemon   ; Selecciona un Pokémon aleatorio
 
-	lb bc, GYARADOS, 15
+	lb bc, a, 15
 	call GivePokemon
 	jr nc, .party_full  ; Si el equipo está lleno, mostrar mensaje
 
@@ -49,6 +50,43 @@ Route12Gate1FPokeballText:
 	ld a, HS_ROUTE12_GATE1F_POKEMON_GIFT
 	ld [wMissableObjectIndex], a
 	predef HideObject
+
+; ---------------------------------
+; Función para seleccionar un Pokémon aleatorio
+; ---------------------------------
+ChooseRandomGiftPokemon:
+    call Random
+    and %00001111     ; Genera un número entre 0 y 31 (ajustaremos si hay 25 Pokémon)
+
+    cp 15             ; Si el número es mayor o igual a 15, recalcular
+    jr nc, ChooseRandomGiftPokemon  
+
+    ld hl, GiftPokemonTable ; Cargar la tabla de Pokémon posibles
+    ld d, 0
+    ld e, a
+    add hl, de
+    ld a, [hl]         ; Cargar el Pokémon seleccionado en A
+    ret
+
+; ---------------------------------
+; Lista de Pokémon aleatorios para recibir
+; ---------------------------------
+GiftPokemonTable:
+    db WARTORTLE
+    db GOLDUCK
+    db POLIWHIRL
+    db TENTACRUEL
+    db SLOWBRO
+    db DEWGONG
+    db CLOYSTER
+    db KINGLER
+    db SEADRA
+    db SEAKING
+    db GYARADOS
+    db LAPRAS
+    db VAPOREON
+    db OMASTAR
+    db KABUTOPS
 	
 .party_full
 	jp TextScriptEnd
