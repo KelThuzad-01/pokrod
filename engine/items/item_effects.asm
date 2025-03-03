@@ -1864,9 +1864,13 @@ ItemUseOldRod:
     xor a                 ; Asegurar que e = 0 si no hay picada
     ld [wRodResponse], a  ; Guardar que NO hubo mordida
     farcall FishingAnim
+    call Random
+    srl a
+    jr nc, .done
     call GiveRandomItem   ; Dar un objeto aleatorio
-    ret
-    ;jp RodResponse        ; Volver a la función original
+
+.done
+	ret
 
 ; -------------------------------
 ; Dar un objeto aleatorio al jugador
@@ -1895,13 +1899,13 @@ GiveRandomItem:
 ; -------------------------------
 OldRodItemTable:
     db POTION
-    db SUPER_POTION
     db ANTIDOTE
-    db GREAT_BALL
-    db RARE_CANDY
-    db WATER_STONE
-    db POTION
-    db POTION
+    db AWAKENING
+    db BURN_HEAL
+    db POKE_BALL
+    db ICE_HEAL
+    db PARALYZE_HEAL
+    db MOON_STONE
 
 ; -------------------------------
 ; Mensaje de objeto recibido
