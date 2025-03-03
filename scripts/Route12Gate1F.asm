@@ -54,5 +54,4 @@ Route12Gate1FPokeballText:
 	jp TextScriptEnd
 
 .already_got_it
-	jp ItemUseNotTime
 	jp TextScriptEnd  ; Si ya se recogió, no hacer nada
