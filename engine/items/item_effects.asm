@@ -1878,15 +1878,13 @@ GiveRandomItem:
     add hl, de
     ld a, [hl]             ; Obtener el ID del objeto
 
-    ld [wItemToReceive], a ; Guardar el objeto temporalmente
+    ; Dar el objeto al jugador
+    lb bc, a, 1            ; Cantidad 1 del objeto seleccionado
+    call GiveItem          
 
-    ld a, 1                ; Cantidad = 1
-    ld [wItemQuantityToReceive], a
-
-    call GiveItem          ; Dar el objeto al jugador
-
+    ; Mostrar mensaje de objeto recibido
     ld hl, OldRodItemMessage
-    call PrintText         ; Mostrar mensaje de objeto recibido
+    call PrintText         
     ret
 
 ; -------------------------------
@@ -1899,8 +1897,8 @@ OldRodItemTable:
     db GREAT_BALL
     db RARE_CANDY
     db WATER_STONE
-    db TM_12
-    db NUGGET
+    db POTION
+    db POTION
 
 ; -------------------------------
 ; Mensaje de objeto recibido
