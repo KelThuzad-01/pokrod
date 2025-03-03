@@ -1864,7 +1864,8 @@ ItemUseOldRod:
     xor a                 ; Asegurar que e = 0 si no hay picada
     ld [wRodResponse], a  ; Guardar que NO hubo mordida
     call GiveRandomItem   ; Dar un objeto aleatorio
-    jp RodResponse        ; Volver a la función original
+    ret
+    ;jp RodResponse        ; Volver a la función original
 
 ; -------------------------------
 ; Dar un objeto aleatorio al jugador
