@@ -1863,7 +1863,52 @@ ItemUseOldRod:
 .NoBite:
     xor a                 ; Asegurar que e = 0 si no hay picada
     ld [wRodResponse], a  ; Guardar que NO hubo mordida
+    call GiveRandomItem   ; Dar un objeto aleatorio
     jp RodResponse        ; Volver a la función original
+
+; -------------------------------
+; Dar un objeto aleatorio al jugador
+; -------------------------------
+GiveRandomItem:
+    call Random
+    and %00000111          ; Genera un número entre 0 y 7 (8 posibles objetos)
+    ld hl, OldRodItemTable ; Cargar la dirección de la tabla de objetos
+    ld d, 0
+    ld e, a
+    add hl, de
+    ld a, [hl]             ; Obtener el ID del objeto
+
+    ld [wItemToReceive], a ; Guardar el objeto temporalmente
+
+    ld a, 1                ; Cantidad = 1
+    ld [wItemQuantityToReceive], a
+
+    call GiveItem          ; Dar el objeto al jugador
+
+    ld hl, OldRodItemMessage
+    call PrintText         ; Mostrar mensaje de objeto recibido
+    ret
+
+; -------------------------------
+; Tabla de objetos posibles
+; -------------------------------
+OldRodItemTable:
+    db POTION
+    db SUPER_POTION
+    db ANTIDOTE
+    db GREAT_BALL
+    db RARE_CANDY
+    db WATER_STONE
+    db TM_12
+    db NUGGET
+
+; -------------------------------
+; Mensaje de objeto recibido
+; -------------------------------
+OldRodItemMessage:
+    text "Sacaste un objeto del agua!"
+    line "Lo guardaste en tu bolsa."
+    done
 
 OldRodPokemonTable:
     db $85, $02, $03, $04, $05, $06, $0B, $0C, $0D, $0F, $11  ; Lista de Pokémon válidos
