@@ -39,7 +39,8 @@ Route12Gate1FPokeballText:
 	jr nz, .already_got_it                 ; Si ya lo tiene, salir
 	call ChooseRandomGiftPokemon   ; Selecciona un Pokémon aleatorio
 
-	lb bc, a, 15
+	ld b, a
+	ld, c, 15
 	call GivePokemon
 	jr nc, .party_full  ; Si el equipo está lleno, mostrar mensaje
 
