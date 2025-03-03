@@ -1827,8 +1827,6 @@ ItemUseOldRod:
     call FishingInit
     jp c, ItemUseNotTime  ; Si no es momento de pescar, salir
 
-    call FishingAnim
-
     call Random
     srl a                 ; 50% de probabilidad de picar
     jr c, .NoBite         ; Si no pica, ir a .NoBite
