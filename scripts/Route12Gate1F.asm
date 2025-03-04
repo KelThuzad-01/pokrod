@@ -12,7 +12,7 @@ Route12Gate1FGuardText:
 	text_far _Route12Gate1FGuardText
 	text_end
 	call PrintText
-	predef HealParty
+	farcall HealParty
 	call GBFadeOutToWhite
 	call Delay3
 	call GBFadeInFromWhite
