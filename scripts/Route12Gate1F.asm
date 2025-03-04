@@ -9,7 +9,7 @@ Route12Gate1F_TextPointers:
 	dw_const Route12Gate1FPokeballText, TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
 
 Route12Gate1FGuardText:
-	predef HealParty
+	call HealParty
 	text_far _Route12Gate1FGuardText
 	text_end
 	jp TextScriptEnd
