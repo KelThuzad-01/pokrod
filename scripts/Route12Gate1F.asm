@@ -9,9 +9,13 @@ Route12Gate1F_TextPointers:
 	dw_const Route12Gate1FPokeballText, TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
 
 Route12Gate1FGuardText:
-	call HealParty
 	text_far _Route12Gate1FGuardText
 	text_end
+	call PrintText
+	predef HealParty
+	call GBFadeOutToWhite
+	call Delay3
+	call GBFadeInFromWhite
 	jp TextScriptEnd
 
 Route12Gate1FPokeballText:
