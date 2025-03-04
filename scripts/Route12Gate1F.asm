@@ -22,7 +22,6 @@ Route12Gate1FPokeballText:
 	text_asm
 	CheckEvent EVENT_GOT_ROUTE12_POKEMON  ; Verificar si ya se recogió el Pokémon
 	jr nz, .already_got_it                 ; Si ya lo tiene, salir
-	object_event  5,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
 	call ChooseRandomGiftPokemon   ; Selecciona un Pokémon aleatorio
 
 	ld b, a
@@ -42,6 +41,9 @@ Route12Gate1FPokeballText:
 	jp TextScriptEnd
 
 .already_got_it
+	text "Already get my"
+	line "Pokémon"
+	prompt
 	jp TextScriptEnd  ; Si ya se recogió, no hacer nada
 
 ; ---------------------------------
