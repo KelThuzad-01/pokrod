@@ -9,29 +9,10 @@ Route12Gate1F_TextPointers:
 	dw_const Route12Gate1FPokeballText, TEXT_ROUTE12_GATE1F_POKEMON_POKEBALL
 
 Route12Gate1FGuardText:
-	jr nz, .heal
+	predef HealParty
 	text_far _Route12Gate1FGuardText
 	text_end
 	jp TextScriptEnd
-.heal
-	call RedsHouse1FMomHealScript2
-
-RedsHouse1FMomHealScript2:
-	call PrintText
-	call GBFadeOutToWhite
-	call ReloadMapData
-	predef HealParty
-	ld a, MUSIC_PKMN_HEALED
-	ld [wNewSoundID], a
-	call PlaySound
-.next
-	ld a, [wChannelSoundIDs]
-	cp MUSIC_PKMN_HEALED
-	jr z, .next
-	ld a, [wMapMusicSoundID]
-	ld [wNewSoundID], a
-	call PlaySound
-	call GBFadeInFromWhite
 
 Route12Gate1FPokeballText:
 	text_asm
