@@ -22,6 +22,8 @@ Route11_Object:
 
 	def_bg_events
 	bg_event  1,  5, TEXT_ROUTE11_DIGLETTSCAVE_SIGN
+	bg_event  1,  6, TEXT_ROUTE11_DIGLETTSCAVE_SIGN
+	bg_event  1,  7, TEXT_ROUTE11_DIGLETTSCAVE_SIGN
 
 	def_object_events
 	object_event 10, 14, SPRITE_GAMBLER, STAY, DOWN, TEXT_ROUTE11_GAMBLER1, OPP_GAMBLER, 1
